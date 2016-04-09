@@ -167,8 +167,25 @@ KeyField = "k=" key:$KeyType EOL {
   };
 }
 
-AttributeFields = attrs:("a=" attribute EOL)* {
-  return attrs.map(function(attr) { return attr[1]; });
+
+
+AttributeFields = attrs:(AttributeLine)*
+
+AttributeLine = RtcpFbLine
+              / RtpMapLine
+              / RtcpLine
+              / ExtmapLine
+              / SSRCLine
+              / SSRCGroupLine
+              / CnameLine
+              / PreviousSSRCLine
+              / DirectionLine
+              / FingerprintLine
+              / GenericAttributeLine
+
+
+GenericAttributeLine = "a=" attr:attribute EOL {
+  return attr;
 }
 
 MediaDescriptions = all:MediaDescription*
@@ -258,6 +275,8 @@ integer = POSDIGIT DIGIT* {
 
 POSDIGIT = [\x31-\x39] //  1 - 9
 
+AlphaNumeric = ALPHA / DIGIT
+
 // string of visible characters
 NonWsString = $(VCHAR / [\x80-\xFF])+
 
@@ -326,14 +345,12 @@ Base64Char  = ALPHA / DIGIT / "+" / "/"
 //  sub-rules of 'a='
 attribute = name:AttField ":" value:AttValue {
             return {
-              type: 'attribute',
               name: name.trim(),
               value: value.trim()
             };
           }
           / name:AttField {
             return {
-              type: 'attribute',
               name: name.trim()
             };
           }
@@ -341,6 +358,218 @@ attribute = name:AttField ":" value:AttValue {
 AttField = token
 AttValue = ByteString
 
+/**
+ * Real Time Control Protocol (RTCP) attribute in Session Description Protocol (SDP)
+ * https://tools.ietf.org/html/rfc3605
+ * e.g. a=rtcp:9 IN IP4 0.0.0.0
+ */
+
+RtcpLine = "a=rtcp:" a:port details:(SP nettype SP addrtype SP $ConnectionAddress)? EOL {
+  var line = {
+    type: 'rtcp',
+    port: a,
+  };
+
+  if (details) {
+    line.netType = details[1];
+    line.addrType = details[3];
+    line.address = details[5];
+  }
+
+  return line;
+}
+
+/*a=rtpmap:<payload type> <encoding name>/<clock rate> [/<encoding parameters>]*/
+RtpMapLine = "a=rtpmap:" payloadType:fmt SP encodingName:token "/" clockRate:integer encodingParams:("/" token)? EOL {
+  var line = {
+    type: "rtpmap",
+    payloadType: payloadType,
+    encodingName: encodingName,
+    clockRate: clockRate
+  };
+
+  if (encodingParams) {
+    line.encodingParams = encodingParams[1];
+  }
+
+  return line;
+}
+
+DirectionLine = "a=" direction:direction EOL {
+  return {
+    type: "direction",
+    value: direction,
+  };
+}
+
+
+/**
+ * Connection-Oriented Media Transport over the Transport Layer Security
+ * (TLS) Protocol in the Session Description Protocol (SDP)
+ * https://tools.ietf.org/html/rfc4572
+ */
+
+FingerprintLine = "a=fingerprint:" hashFunc:hashFunc SP fingerprint:fingerprint EOL {
+  return {
+    type: 'fingerprint',
+    hashFunction: hashFunc,
+    fingerprint: fingerprint
+  };
+}
+
+// Additional hash functions can only come from updates to RFC 3279
+hashFunc =  "sha-1" / "sha-224" / "sha-256" / "sha-384"
+         / "sha-512" / "md5" / "md2" / token
+
+// Each byte in upper-case hex, separated by colons.
+fingerprint =  $(HEXDIG HEXDIG (":" HEXDIG HEXDIG)*)
+
+/**
+ * Source-Specific Media Attributes in the Session Description Protocol (SDP)
+ * See https://tools.ietf.org/html/rfc5576
+ */
+
+// The base definition of "attribute" is in RFC 4566. (It is the content of "a=" lines.)
+SSRCLine = "a=ssrc:" id:SSRCId SP attr:attribute EOL {
+  return {
+    type: "ssrc",
+    id: id,
+    attribute: attr
+  };
+}
+
+SSRCGroupLine = "a=ssrc-group:" semantics:semantics ids:(SP SSRCId)* EOL {
+  return {
+    type: "ssrc-group",
+    semantics: semantics,
+    ids: ids.map(function(id) { return id[1]; }),
+  };
+}
+
+CnameLine = "a=cname:" cname:cname EOL {
+  return {
+    type: "cname",
+    value: cname,
+  };
+}
+
+PreviousSSRCLine = "a=previous-ssrc:" id:SSRCId previousIds:(SP SSRCId)* EOL {
+  return {
+    type: "cname",
+    id: id,
+    previousIds: previousIds.map(function(id) { return id[1]; }),
+  };
+}
+
+// 0 .. 2**32 - 1
+SSRCId = integer
+
+// Matches RFC 3388 definition and IANA registration rules in this doc.
+semantics = "FEC" / "FID" / token
+
+// Following the syntax conventions for CNAME as defined in RFC 3550.
+// The definition of "ByteString" is in RFC 4566.
+cname = ByteString
+
+/**
+ * A General Mechanism for RTP Header Extensions
+ * See http://tools.ietf.org/html/rfc5285
+ * a=extmap:<value>["/"<direction>] <URI> <extensionattributes>
+ */
+
+ExtmapLine = "a=extmap:" value:$DIGIT+ direction:("/" direction)? SP extension:extensionname extensionAttrs:(SP ExtensionAttributes)? EOL {
+  var line =  {
+    type: 'extmap',
+    value: value,
+    extension: extension
+  };
+
+  if (direction) {
+    line.direction = direction[1];
+  }
+
+  if (extensionAttrs) {
+    line.extensionAttrs = extensionAttrs[1]
+  }
+
+  return line;
+}
+
+extensionname = $URI
+direction = "sendonly" / "recvonly" / "sendrecv" / "inactive"
+ExtensionAttributes = ByteString
+
+
+/**
+ * sub-rules for Extended RTP Profile for Real-time Transport Control Protocol (RTCP)-Based Feedback (RTP/AVPF)
+ * See https://tools.ietf.org/html/rfc4585
+ */
+
+RtcpFbLine = "a=rtcp-fb:" format:RtcpFbPt SP feedbackType:RtcpFbVal? EOL {
+  return {
+    name: "rtcp-fb",
+    format: format,
+    feedbackType: feedbackType
+  };
+}
+
+RtcpFbPt = "*"   // wildcard: applies to all formats
+         / fmt   // as defined in SDP spec
+
+RtcpFbVal = "ack" params:RtcpFbAckParam? {
+            return {
+              type: 'ack',
+              params: params || [],
+            };
+          }
+           / "nack" params:RtcpFbNackParam? {
+             return {
+               type: 'nack',
+               params: params || [],
+             };
+           }
+           / "trr-int" SP param:DIGIT+ {
+             return {
+               type: 'trr-int',
+               params: param ? [param] : [],
+             };
+           }
+           / type:RtcpFbId? params:RtcpFbParam? {
+             return {
+               type: type,
+               params: params || [],
+             };
+           }
+
+RtcpFbId = $(AlphaNumeric / "-" / "_")+
+
+RtcpFbParam = SP "app" additional:(SP ByteString)? {
+              return ["app"].concat(additional ? additional[1] : []);
+            }
+            / SP param:token additional:(SP ByteString)? {
+              return [param].concat(additional ? additional[1] : []);
+            }
+            // // empty
+
+RtcpFbAckParam = SP "rpsi" { return ["rpsi"]; }
+               / SP "app" additional:(SP ByteString)? {
+                 return ["app"].concat(additional ? additional[1] : []);
+               }
+               / SP param:token additional:(SP ByteString)? {
+                 return [param].concat(additional ? additional[1] : []);
+               }
+               // // empty
+
+RtcpFbNackParam = SP "pli" { return ["pli"]; }
+                 / SP "sli" { return ["sli"]; }
+                 / SP "rpsi" { return ["rpsi"]; }
+                 / SP "app" additional:(SP ByteString)? {
+                   return ["app"].concat(additional ? additional[1] : []);
+                 }
+                 / SP param:token additional:(SP ByteString)? {
+                   return [param].concat(additional ? additional[1] : []);
+                 }
+                 // ; empty
 
 
 /**
@@ -619,7 +848,7 @@ proto = token ("/" token)*
 AddrSpec = LocalPart "@" domain
 
 LocalPart = DotAtom
-//          / QuotedString
+          / QuotedString
           / ObsLocalPart
 
 domain = DotAtom
@@ -646,7 +875,7 @@ text = [\d1-\d9]          // Characters excluding CR and LF
      / "\d11"
      / "\d12"
      / [\d14-\d127]
-     / ObsText
+     // ObsText   // Disabled this as it causes infinite loops (probably due to infinite left recursion)
 
 
 /**
@@ -661,7 +890,7 @@ qtext = NoWsCtl           // Non white space controls
 
 qcontent = text / QuotedPair
 
-//QuotedString = CFWS? DQUOTE (FWS? qcontent)* FWS? DQUOTE CFWS?
+QuotedString = CFWS? DQUOTE (FWS? qcontent)* FWS? DQUOTE CFWS?
 
 
 /**
@@ -714,7 +943,7 @@ comment = "(" (FWS? ccontent)* FWS? ")"
 CFWS = (FWS? comment)* ((FWS? comment) / FWS)
 
 
-word = atom // QuotedString
+word = atom / QuotedString
 
 phrase = word+ / ObsPhrase
 
@@ -757,7 +986,6 @@ text = ByteString
 
 // any byte except NUL, CR, or LF
 ByteString = $([\x01-\x09] / [\x0B-\x0C] / [\x0E-\xFF])+
-
 
 /**
  * Generic ABNF primitives
