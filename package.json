@@ -37,7 +37,7 @@
     "babel-preset-stage-2": "^6.3.13",
     "babel-preset-stage-3": "^6.3.13",
     "babel-register": "^6.4.3",
-    "bluebird": "^3.2.2",
+    "bluebird": "^3.3.4",
     "chai": "^3.5.0",
     "chai-as-promised": "^5.2.0",
     "eslint": "1.10.3",

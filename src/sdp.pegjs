@@ -4,6 +4,12 @@
  *
  * See https://tools.ietf.org/html/rfc4566
  */
+{
+
+  function extractFirst(array) {
+    return array.map(function(element) { return element[1]; });
+  }
+}
 
 SessionDescription = a:ProtoVersion b:OriginField c:SessionNameField d:InformationField?
                      e:UriField? f:EmailFields? g:PhoneFields? h:ConnectionField?
@@ -14,10 +20,14 @@ SessionDescription = a:ProtoVersion b:OriginField c:SessionNameField d:Informati
     version: a,
     origin: b,
     sessionName: c,
-    times: j.value,
+    times: j.times,
     attributes: l,
     media: m
   };
+
+  if (j.zoneAdjustments) {
+    sdp.zoneAdjustments = j.zoneAdjustments;
+  }
 
   if (d) { sdp.info = d; }
   if (e) { sdp.uri = e; }
@@ -38,8 +48,10 @@ ProtoVersion = "v=" version:DIGIT+ EOL {
 OriginField = "o=" a:username SP b:SessId SP c:SessVersion SP d:nettype SP e:addrtype SP f:UnicastAddress EOL {
   return {
     username: a,
-    sessionId: b,
-    sessionVersion: c,
+    session: {
+      id: b,
+      version: c,
+    },
     netType: d,
     addressType: e,
     address: f,
@@ -51,18 +63,12 @@ SessionNameField = "s=" sessionName:text EOL {
 }
 
 InformationField = "i=" value:text EOL {
-  return {
-  	type: 'info',
-    value: value,
-  };
+  return value;
 }
 
 
 UriField = "u=" uri:$uri EOL {
-  return {
-  	type: 'uri',
-    value: uri,
-  };
+  return uri;
 }
 
 EmailFields = emails:("e=" $EmailAddress EOL)*  {
@@ -70,10 +76,7 @@ EmailFields = emails:("e=" $EmailAddress EOL)*  {
     return void 0;
   }
 
-  return {
-  	type: 'email',
-    value: emails.map(function(email) { return email[1]; }),
-  };
+  return extractFirst(emails);
 }
 
 PhoneFields = phoneNumbers:("p=" $PhoneNumber EOL)* {
@@ -81,10 +84,7 @@ PhoneFields = phoneNumbers:("p=" $PhoneNumber EOL)* {
     return void 0;
   }
 
-  return {
-  	type: 'phone',
-    value: phoneNumbers.map(function(phone) { return phone[1]; }),
-  };
+  return extractFirst(phoneNumbers);
 }
 
 // a connection field must be present in every media description
@@ -97,67 +97,65 @@ ConnectionField = "c=" a:nettype SP b:addrtype SP c:$ConnectionAddress EOL {
   };
 }
 
-BandwidthFields = bandwidths:("b=" bwtype ":" bandwidth EOL)* {
+BandwidthFields = bandwidths:BandwidthField* {
   if (bandwidths.length === 0) {
     return void 0;
   }
 
+  return bandwidths;
+}
+
+BandwidthField = "b=" type:bwtype ":" value:bandwidth EOL {
   return {
-  	type: 'bandwidths',
-    value: bandwidths.map(function(bandwidth) {
-      return {
-        type: bandwidths[1],
-        value: bandwidths[3],
-      };
-    }),
+    type: type,
+    value: value,
   };
 }
 
 TimeFields = times:TimeField+ z:(ZoneAdjustments EOL)? {
   var timeFields =  {
-  	type: 'times',
     times: times,
   };
 
   if (z) {
-    timeFields.zoneAdjustments =z[0];
+    timeFields.zoneAdjustments = z[0];
   }
 
   return timeFields;
 }
 
 TimeField = "t=" a:StartTime SP b:StopTime r:(EOL RepeatFields)* EOL {
-  return {
+  var line = {
     start: a,
     stop: b,
-    repeats: r.map(function(repeat) { return repeat[1]; })
   };
+
+  if (r && r.length) {
+    line.repeats = extractFirst(r)
+  }
+
+  return line;
 }
 
 // r=<repeat interval> <active duration> <offsets from start-time>
 // https://tools.ietf.org/html/rfc4566#section-5.10
 RepeatFields =  "r=" interval:RepeatInterval SP activeDuration:TypedTime offsets:(SP TypedTime)+ {
   return {
-    type: 'repeat',
     interval: interval,
     activeDuration: activeDuration,
-    offsets: offsets.map(function(offset) { return offset[1]; })
+    offsets: extractFirst(offsets),
   }
 }
+
 
 // z=<adjustment time> <offset> <adjustment time> <offset> ....
 // https://tools.ietf.org/html/rfc4566#section-5.11
 ZoneAdjustments = "z=" time:time SP offset:$("-"? TypedTime) rest:(SP time SP $("-"? TypedTime))* {
-  var adjustments = [
+  return [
     { time: time, offset: offset}
   ].concat(rest.map(function(adjustment) {
     return { time: adjustment[1], offset: adjustment[3] }
   }));
-
-  return {
-    type: 'zoneAdjustments',
-    adjustments: adjustments
-  };
 }
 
 KeyField = "k=" key:$KeyType EOL {
@@ -177,6 +175,7 @@ AttributeLine = RtcpFbLine
               / ExtmapLine
               / SSRCLine
               / SSRCGroupLine
+              / GroupLine
               / CnameLine
               / PreviousSSRCLine
               / DirectionLine
@@ -194,6 +193,7 @@ MediaDescription = m:MediaLine info:InformationField? connections:ConnectionFiel
     type: m.media,
     formats: m.formats,
     port: m.port,
+    protocol: m.protocol,
     attrs: attrs,
   };
 
@@ -224,7 +224,8 @@ MediaDescription = m:MediaLine info:InformationField? connections:ConnectionFiel
 MediaLine = "m=" a:media SP b:port c:("/" integer)? SP d:proto e:(SP fmt)+ EOL {
   var m = {
     type: 'mediaLine',
-    formats: e.map(function(fmt) { return fmt[1]; }),
+    formats: extractFirst(e),
+    protocol: d,
     media: a,
     port: b,
   };
@@ -304,14 +305,17 @@ phone = "+"? DIGIT (SP / "-" / DIGIT)+
 ConnectionAddress =  MulticastAddress / UnicastAddress
 
 //  sub-rules of 'b='
-bwtype =              token
+bwtype = token
 
-bandwidth =           DIGIT+
+bandwidth = DIGIT+ {
+  // in kilobits per second
+  return parseInt(text(), 10);
+}
 
 //  sub-rules of 't='
-StartTime =          time / "0"
+StartTime = time / "0"
 
-StopTime =           time / "0"
+StopTime = time / "0"
 
 //  Decimal representation of NTP time in
 //  seconds since 1900.  The representation
@@ -319,12 +323,14 @@ StopTime =           time / "0"
 //  containing at least 10 digits.  Unlike the
 //  64-bit representation used elsewhere, time
 //  in SDP does not wrap in the year 2036.
-time = POSDIGIT DIGIT DIGIT DIGIT DIGIT DIGIT DIGIT DIGIT DIGIT DIGIT
+time = $(POSDIGIT DIGIT DIGIT DIGIT DIGIT DIGIT DIGIT DIGIT DIGIT DIGIT)
 
 //  sub-rules of 'r=' and 'z='
-RepeatInterval = $(POSDIGIT DIGIT* FixedLenTimeUnit?)
+RepeatInterval = $(POSDIGIT DIGIT* FixedLenTimeUnit)
+               / POSDIGIT DIGIT* { return parseInt(text(), 10); }
 
-TypedTime = $(DIGIT+ FixedLenTimeUnit?)
+TypedTime = $(DIGIT+ FixedLenTimeUnit)
+          / DIGIT+ { return parseInt(text(), 10); }
 
 FixedLenTimeUnit = "\x64" / "\x68" / "\x6d" / "\x73"
 
@@ -345,18 +351,50 @@ Base64Char  = ALPHA / DIGIT / "+" / "/"
 //  sub-rules of 'a='
 attribute = name:AttField ":" value:AttValue {
             return {
-              name: name.trim(),
+              type: name.trim(),
               value: value.trim()
             };
           }
           / name:AttField {
             return {
-              name: name.trim()
+              type: name.trim()
             };
           }
 
 AttField = token
 AttValue = ByteString
+
+/**
+ * Media Stream Identification (MID) Attribute
+ * https://tools.ietf.org/html/rfc5888#section-4
+ * e.g. a=mid:audio
+ */
+MidLine = "a=mid:" id:identificationTag EOL {
+  return {
+    type: 'mid',
+    idTag: id,
+  };
+}
+
+
+/**
+ * Group Attribute
+ * https://tools.ietf.org/html/rfc5888#section-5
+ * e.g. a=group:BUNDLE audio video
+ */
+GroupLine = "a=group:" s:groupSemantics idTags:(SP identificationTag)* EOL {
+  return {
+    type: 'group',
+    semantics: s,
+    idTags: extractFirst(idTags),
+  }
+}
+
+groupSemantics = "LS"
+          / "FID"
+          / $(semanticsExtension)
+semanticsExtension = token;
+
 
 /**
  * Real Time Control Protocol (RTCP) attribute in Session Description Protocol (SDP)
@@ -442,7 +480,7 @@ SSRCGroupLine = "a=ssrc-group:" semantics:semantics ids:(SP SSRCId)* EOL {
   return {
     type: "ssrc-group",
     semantics: semantics,
-    ids: ids.map(function(id) { return id[1]; }),
+    ids: extractFirst(ids),
   };
 }
 
@@ -457,7 +495,7 @@ PreviousSSRCLine = "a=previous-ssrc:" id:SSRCId previousIds:(SP SSRCId)* EOL {
   return {
     type: "cname",
     id: id,
-    previousIds: previousIds.map(function(id) { return id[1]; }),
+    previousIds: extractFirst(previousIds),
   };
 }
 
@@ -505,11 +543,11 @@ ExtensionAttributes = ByteString
  * See https://tools.ietf.org/html/rfc4585
  */
 
-RtcpFbLine = "a=rtcp-fb:" format:RtcpFbPt SP feedbackType:RtcpFbVal? EOL {
+RtcpFbLine = "a=rtcp-fb:" format:RtcpFbPt SP feedback:RtcpFbVal? EOL {
   return {
-    name: "rtcp-fb",
+    type: "rtcp-fb",
     format: format,
-    feedbackType: feedbackType
+    feedback: feedback
   };
 }
 
@@ -812,17 +850,19 @@ EmailAddress = AddressAndComment
               / DispnameAndAddress
               / AddrSpec
 
-AddressAndComment  = AddrSpec SP+ "(" EmailSafe+ ")"
-DispnameAndAddress = EmailSafe+ SP+ "<" AddrSpec ">"
+AddressAndComment  = AddrSpec "(" EmailSafe+ ")"
+DispnameAndAddress = EmailSafe+ "<" AddrSpec ">"
 
 
 // any byte except NUL, CR, LF, or the quoting characters ()<>
-EmailSafe = [\x01-\x09]
-          / [\x0B-\x0C]
-          / [\x0E-\x27]
-          / [\x2A-\x3B]
-          / "\x3D"
-          / [\x3F-\xFF]
+EmailSafe = AlphaNumeric
+          / "'" / "'" / "-" / "."
+          / "/" / ":" / "?" / "\""
+          / "#" / "$" / "&" / "*"
+          / ";" / "=" / "@" / "["
+          / "]" / "^" / "_" / "`"
+          / "{" / "|" / "}" / "+"
+          / "~" / SP / HTAB
 
 
 /**
@@ -836,7 +876,7 @@ media = token
 fmt = token
 
 // typically "RTP/AVP" or "udp"
-proto = token ("/" token)*
+proto = $(token ("/" token)*)
 
 /**
  * AddrSpec: from RFC 2822
@@ -975,6 +1015,8 @@ DotAtom = CFWS? DotAtomText CFWS?
 
 DotAtomText = atext+ ("." atext+)*
 
+identificationTag = token
+
 /**
  * generic sub-rules: datatypes
  */
@@ -1000,8 +1042,8 @@ HEXDIG
   / "F"i
 
 VCHAR = [\x21-\x7E]
-ALPHA = [\x41-\x5A] / [\x61-\x7A]
-DIGIT = [\x30-\x39]
+ALPHA = [a-zA-Z]
+DIGIT = [0-9]
 DQUOTE = [\x22]
 HTAB = "\x09"
 WSP = SP / HTAB
