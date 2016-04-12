@@ -24,7 +24,8 @@
     "url": "git://github.com/luma/wtfsdp.git"
   },
   "dependencies": {
-    "babel-polyfill": "^6.3.14"
+    "babel-polyfill": "^6.3.14",
+    "pegjs-backtrace": "^0.1.1"
   },
   "devDependencies": {
     "babel-cli": "^6.4.5",

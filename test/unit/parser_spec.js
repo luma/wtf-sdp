@@ -1,4 +1,5 @@
 /* eslint max-nested-callbacks: [0] */
+/* global before */
 import path from 'path';
 import fs from 'fs';
 import PEG from 'pegjs';
@@ -331,5 +332,12 @@ describe('Parser', function() {
       expect(ccmFb.format).to.equal('100');
       expect(ccmFb.feedback.params).to.eql(['fir']);
     });
+
+    describe('candidate', function() {
+
+    });
+
+    it('parses ice-pwd');
+    it('parses ice-ufrag');
   });
 });

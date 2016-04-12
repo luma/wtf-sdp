@@ -37,6 +37,8 @@ See [CONTRIBUTING.md](../master/CONTRIBUTING.md)
 * Human readable lookups of the [FMT Values for PSFB Payload Types](https://www.iana.org/assignments/rtp-parameters/rtp-parameters.xml). [RFC4585](http://www.iana.org/go/rfc4585)
 * Human readable lookups of the [RTP Profile Names](https://www.iana.org/assignments/rtp-parameters/rtp-parameters.xml).
 * Human readable lookups of the [RTP Payload Format media types](https://www.iana.org/assignments/rtp-parameters/rtp-parameters.xml)
+* Higher level objects that wrap the raw parser output
+* Serialiser
 
 ### History
 

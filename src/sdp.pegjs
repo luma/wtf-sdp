@@ -13,7 +13,7 @@
 
 SessionDescription = a:ProtoVersion b:OriginField c:SessionNameField d:InformationField?
                      e:UriField? f:EmailFields? g:PhoneFields? h:ConnectionField?
-                     i:BandwidthFields j:TimeFields k:KeyField? l:AttributeFields
+                     i:BandwidthFields j:TimeFields k:KeyField? l:SessionAttributeFields
                      m:MediaDescriptions {
 
   var sdp = {
@@ -167,20 +167,44 @@ KeyField = "k=" key:$KeyType EOL {
 
 
 
-AttributeFields = attrs:(AttributeLine)*
+SessionAttributeFields = attrs:(SessionAttributeLine)*
+MediaAttributeFields = attrs:(MediaAttributeLine)*
 
-AttributeLine = RtcpFbLine
-              / RtpMapLine
-              / RtcpLine
-              / ExtmapLine
-              / SSRCLine
-              / SSRCGroupLine
-              / GroupLine
-              / CnameLine
-              / PreviousSSRCLine
-              / DirectionLine
-              / FingerprintLine
-              / GenericAttributeLine
+
+SessionAttributeLine = RtcpFbLine
+                     / RtpMapLine
+                     / RtcpLine
+                     / ExtmapLine
+                     / SSRCLine
+                     / SSRCGroupLine
+                     / GroupLine
+                     / CnameLine
+                     / PreviousSSRCLine
+                     / DirectionLine
+                     / FingerprintLine
+                     / IcePwdLine
+                     / IceUfragLine
+                     / IceLiteLine
+                     / IceMismatchLine
+                     / IceOptionsLine
+                     / GenericAttributeLine
+
+MediaAttributeLine = RtcpFbLine
+                   / RtpMapLine
+                   / RtcpLine
+                   / ExtmapLine
+                   / SSRCLine
+                   / SSRCGroupLine
+                   / GroupLine
+                   / CnameLine
+                   / PreviousSSRCLine
+                   / DirectionLine
+                   / FingerprintLine
+                   / CandidateLine
+                   / IcePwdLine
+                   / IceUfragLine
+                   / RemoteCandidateLine
+                   / GenericAttributeLine
 
 
 GenericAttributeLine = "a=" attr:attribute EOL {
@@ -188,7 +212,7 @@ GenericAttributeLine = "a=" attr:attribute EOL {
 }
 
 MediaDescriptions = all:MediaDescription*
-MediaDescription = m:MediaLine info:InformationField? connections:ConnectionField* bandwidths:BandwidthFields key:KeyField? attrs:AttributeFields {
+MediaDescription = m:MediaLine info:InformationField? connections:ConnectionField* bandwidths:BandwidthFields key:KeyField? attrs:MediaAttributeFields {
   var desc = {
     type: m.media,
     formats: m.formats,
@@ -461,6 +485,144 @@ hashFunc =  "sha-1" / "sha-224" / "sha-256" / "sha-384"
 
 // Each byte in upper-case hex, separated by colons.
 fingerprint =  $(HEXDIG HEXDIG (":" HEXDIG HEXDIG)*)
+
+/**
+ * Interactive Connectivity Establishment (ICE): A Protocol for Network
+ * Address Translator (NAT) Traversal for Offer/Answer Protocols
+ * http://tools.ietf.org/html/rfc5245#section-15
+ * e.g.
+ *   a=candidate:1 1 UDP 2130706431 10.0.1.1 8998 typ host
+ *   a=candidate:2 1 UDP 1694498815 192.0.2.3 45664 typ srflx raddr 10.0.1.1 rport 8998
+ */
+CandidateLine = "a=candidate:" a:Foundation SP b:ComponentId SP c:Transport SP
+                                d:Priority SP e:ConnectionAddress SP f:port SP
+                                g:CandType h:(SP RelAddr)? i:(SP RelPort)?
+                                j:(SP ExtensionAttName SP ExtensionAttValue)* EOL {
+
+  var candidate = {
+    type: 'candidate',
+    foundation: a,
+    componentId: b,
+    transport: c,
+    priority: d,
+    address: e,
+    port: f,
+    candidateType: g,
+    extensions: j.map((ext) => {
+      return {name: ext[1], value: ext[3]};
+    }),
+  };
+
+  if (h) {
+    candidate.relAddr = h[1];
+  }
+
+  if (i) {
+    candidate.relPort = i[1];
+  }
+
+  return candidate;
+}
+
+// @fixme This is incorrect, the actual definition should be 1*32ice-char. Limiting
+// the number of repeats of a sequence isn't directly supported in PEG.js yet.
+// The following is 1 or more, rather than between 1 and 32.
+Foundation = $IceChar+
+ComponentId = $DIGIT1_5
+Transport = "UDP" / TransportExtension
+TransportExtension = token
+Priority = $DIGIT1_10
+CandType = "typ" SP type:CandidateTypes { return type; }
+CandidateTypes = "host" / "srflx" / "prflx" / "relay" / token
+RelAddr = "raddr" SP addr:ConnectionAddress { return addr; }
+RelPort = "rport" SP port:port { return port; }
+ExtensionAttName = ByteString
+ExtensionAttValue = ByteString
+
+
+
+
+/**
+ * "ice-ufrag" and "ice-pwd" Attributes
+ * See http://tools.ietf.org/html/rfc5245#section-15.4
+ */
+
+
+IcePwdLine = "a=ice-pwd:" passwd:password EOL {
+  return {
+    type: 'ice-pwd',
+    value: passwd,
+  };
+}
+
+IceUfragLine = "a=ice-ufrag:" ufrag:ufrag EOL {
+  return {
+    type: 'ice-ufrag',
+    value: ufrag,
+  };
+}
+
+// @fixme This is incorect, the actual definition should be 22*256IceChar. Limiting
+// the number of repeats of a sequence isn't directly supported in PEG.js yet.
+// The following is 22 or more, rather than between 22 and 256.
+password = $(IceChar8 IceChar8 IceChar4 IceChar IceChar+)
+
+// @fixme This is incorrect, the actual definition should be 4*256IceChar. Limiting
+// the number of repeats of a sequence isn't directly supported in PEG.js yet.
+// The following is 4 or more, rather than between 4 and 256.
+ufrag = $(IceChar IceChar IceChar IceChar+)
+
+ IceChar32 = IceChar16 IceChar16
+ IceChar16 = IceChar8 IceChar8
+ IceChar8 = IceChar4 IceChar4
+ IceChar4 = IceChar2 IceChar2
+ IceChar2 = IceChar IceChar
+ IceChar = ALPHA / DIGIT / "+" / "/"
+
+/**
+ * "ice-lite" and "ice-mismatch" Attributes
+ * http://tools.ietf.org/html/rfc5245#section-15.3
+ * Session-level only
+ */
+IceLiteLine = "a=ice-lite" EOL
+IceMismatchLine = "a=ice-mismatch" EOL
+
+
+/**
+ * "ice-options" Attribute
+ * http://tools.ietf.org/html/rfc5245#section-15.5
+ * Session-level only
+ */
+
+IceOptionsLine = "a=ice-options:" first:IceOptionTag rest:(SP IceOptionTag)* EOL {
+  return {
+    type: 'ice-options',
+    value: [first].concat(extractFirst(rest)),
+  };
+}
+IceOptionTag = IceChar+
+
+/**
+ * "remote-candidates" Attribute
+ * http://tools.ietf.org/html/rfc5245#section-15.2
+ * Media-level only
+ */
+RemoteCandidateLine = "a=remote-candidates:" first:RemoteCandidate rest:(SP RemoteCandidate)* EOL {
+  return {
+    type: 'remote-candidates',
+    value: [first].concat(extractFirst(rest)),
+  };
+}
+
+RemoteCandidate = id:ComponentId SP addr:ConnectionAddress SP port:port {
+  return {
+    componentId: id,
+    address: addr,
+    port: port,
+  };
+}
+
+
 
 /**
  * Source-Specific Media Attributes in the Session Description Protocol (SDP)
@@ -1016,6 +1178,9 @@ DotAtom = CFWS? DotAtomText CFWS?
 DotAtomText = atext+ ("." atext+)*
 
 identificationTag = token
+
+DIGIT1_10 = DIGIT DIGIT? DIGIT? DIGIT? DIGIT? DIGIT? DIGIT? DIGIT? DIGIT? DIGIT? { return text(); }
+DIGIT1_5 = DIGIT DIGIT? DIGIT? DIGIT? DIGIT? { return text(); }
 
 /**
  * generic sub-rules: datatypes
