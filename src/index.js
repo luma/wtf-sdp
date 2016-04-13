@@ -1,1 +1,2 @@
-export { default as sdpParser } from './grammar.js';
+export { default as parse } from './parse.js';
+export { default as Sdp } from './sdp.js';
