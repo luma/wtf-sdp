@@ -339,5 +339,12 @@ describe('Parser', function() {
 
     it('parses ice-pwd');
     it('parses ice-ufrag');
+    it('parses ice-options');
+    it('parses remote-candidates');
+    it('parses previous-ssrc');
+    it('parses the encryption key line');
+    it('parses the fmtp line');
+    it('maxptime');
+    it('rtcp-mux');
   });
 });

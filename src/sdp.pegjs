@@ -5,9 +5,22 @@
  * See https://tools.ietf.org/html/rfc4566
  */
 {
-
   function extractFirst(array) {
-    return array.map(function(element) { return element[1]; });
+    return array.map((element) => element[1]);
+  }
+
+  function typeWithParams(type, params) {
+    const obj = { type };
+
+    if (Array.isArray(params)) {
+      if (params.length) {
+        obj.params = params;
+      }
+    } else if (params) {
+      obj.params = [params];
+    }
+
+    return obj;
   }
 }
 
@@ -21,7 +34,7 @@ SessionDescription = a:ProtoVersion b:OriginField c:SessionNameField d:Informati
     origin: b,
     sessionName: c,
     times: j.times,
-    attributes: l,
+    attrs: l,
     media: m
   };
 
@@ -173,7 +186,6 @@ MediaAttributeFields = attrs:(MediaAttributeLine)*
 
 SessionAttributeLine = RtcpFbLine
                      / RtpMapLine
-                     / RtcpLine
                      / ExtmapLine
                      / SSRCLine
                      / SSRCGroupLine
@@ -203,6 +215,10 @@ MediaAttributeLine = RtcpFbLine
                    / CandidateLine
                    / IcePwdLine
                    / IceUfragLine
+                   / IceOptionsLine
+                   / FmtpLine
+                   / MaxPacketTimeLine
+                   / RtcpMuxLine
                    / RemoteCandidateLine
                    / GenericAttributeLine
 
@@ -409,8 +425,10 @@ MidLine = "a=mid:" id:identificationTag EOL {
 GroupLine = "a=group:" s:groupSemantics idTags:(SP identificationTag)* EOL {
   return {
     type: 'group',
-    semantics: s,
-    idTags: extractFirst(idTags),
+    value: {
+      semantics: s,
+      idTags: extractFirst(idTags),
+    },
   }
 }
 
@@ -442,10 +460,10 @@ RtcpLine = "a=rtcp:" a:port details:(SP nettype SP addrtype SP $ConnectionAddres
 }
 
 /*a=rtpmap:<payload type> <encoding name>/<clock rate> [/<encoding parameters>]*/
-RtpMapLine = "a=rtpmap:" payloadType:fmt SP encodingName:token "/" clockRate:integer encodingParams:("/" token)? EOL {
+RtpMapLine = "a=rtpmap:" format:fmt SP encodingName:token "/" clockRate:integer encodingParams:("/" token)? EOL {
   var line = {
     type: "rtpmap",
-    payloadType: payloadType,
+    format: format,
     encodingName: encodingName,
     clockRate: clockRate
   };
@@ -547,7 +565,6 @@ ExtensionAttValue = ByteString
  * See http://tools.ietf.org/html/rfc5245#section-15.4
  */
 
-
 IcePwdLine = "a=ice-pwd:" passwd:password EOL {
   return {
     type: 'ice-pwd',
@@ -584,14 +601,24 @@ ufrag = $(IceChar IceChar IceChar IceChar+)
  * http://tools.ietf.org/html/rfc5245#section-15.3
  * Session-level only
  */
-IceLiteLine = "a=ice-lite" EOL
-IceMismatchLine = "a=ice-mismatch" EOL
+IceLiteLine = "a=ice-lite" EOL {
+  return {
+    type: 'ice-lite',
+  };
+}
+
+IceMismatchLine = "a=ice-mismatch" EOL {
+  return {
+    type: 'ice-mismatch',
+  };
+}
 
 
 /**
  * "ice-options" Attribute
  * http://tools.ietf.org/html/rfc5245#section-15.5
- * Session-level only
+ * https://tools.ietf.org/html/draft-ietf-mmusic-ice-sip-sdp-07#section-9.6
+ * Session and media level
  */
 
 IceOptionsLine = "a=ice-options:" first:IceOptionTag rest:(SP IceOptionTag)* EOL {
@@ -600,7 +627,7 @@ IceOptionsLine = "a=ice-options:" first:IceOptionTag rest:(SP IceOptionTag)* EOL
     value: [first].concat(extractFirst(rest)),
   };
 }
-IceOptionTag = IceChar+
+IceOptionTag = $IceChar+
 
 /**
  * "remote-candidates" Attribute
@@ -610,7 +637,7 @@ IceOptionTag = IceChar+
 RemoteCandidateLine = "a=remote-candidates:" first:RemoteCandidate rest:(SP RemoteCandidate)* EOL {
   return {
     type: 'remote-candidates',
-    value: [first].concat(extractFirst(rest)),
+    candidates: [first].concat(extractFirst(rest)),
   };
 }
 
@@ -622,6 +649,27 @@ RemoteCandidate = id:ComponentId SP addr:ConnectionAddress SP port:port {
   };
 }
 
+
+/**
+ * fmtp attribute
+ * http://tools.ietf.org/html/rfc2327#section-6
+ * a=fmtp:<format> <format specific parameters>
+ * E.g. a=fmtp:96 apt=100
+ * Media-level only
+ */
+FmtpLine = "a=fmtp:" format:fmt maybeParams:(SP+ $atext+)+ EOL {
+  const params = extractFirst(maybeParams);
+  const line = {
+    type: 'fmtp',
+    format: format
+  };
+
+  if (params.length) {
+    line.params = params;
+  }
+
+  return line;
+}
 
 
 /**
@@ -706,39 +754,32 @@ ExtensionAttributes = ByteString
  */
 
 RtcpFbLine = "a=rtcp-fb:" format:RtcpFbPt SP feedback:RtcpFbVal? EOL {
-  return {
+  const line =  {
     type: "rtcp-fb",
     format: format,
-    feedback: feedback
   };
+
+  if (feedback) {
+    line.feedback = feedback;
+  }
+
+  return line;
 }
 
 RtcpFbPt = "*"   // wildcard: applies to all formats
          / fmt   // as defined in SDP spec
 
 RtcpFbVal = "ack" params:RtcpFbAckParam? {
-            return {
-              type: 'ack',
-              params: params || [],
-            };
+            return typeWithParams("ack", params);
           }
            / "nack" params:RtcpFbNackParam? {
-             return {
-               type: 'nack',
-               params: params || [],
-             };
+             return typeWithParams("nack", params);
            }
            / "trr-int" SP param:DIGIT+ {
-             return {
-               type: 'trr-int',
-               params: param ? [param] : [],
-             };
+             return typeWithParams("trr-int", param);
            }
            / type:RtcpFbId? params:RtcpFbParam? {
-             return {
-               type: type,
-               params: params || [],
-             };
+             return typeWithParams(type, params);
            }
 
 RtcpFbId = $(AlphaNumeric / "-" / "_")+
@@ -770,6 +811,30 @@ RtcpFbNackParam = SP "pli" { return ["pli"]; }
                    return [param].concat(additional ? additional[1] : []);
                  }
                  // ; empty
+
+
+
+/**
+* Max Packet Time attribute
+* See https://tools.ietf.org/html/rfc4566
+* a=maxptime:<maximum packet time>
+* Media-level only
+*/
+MaxPacketTimeLine = "a=maxptime:" maxptime:integer EOL {
+ return {
+   type: 'maxptime',
+   value: maxptime,
+ };
+}
+
+/**
+* rtcp-mux attribute
+* See https://tools.ietf.org/html/rfc5761
+* Media-level only
+*/
+RtcpMuxLine = "a=rtcp-mux" EOL {
+ return { type: 'rtcp-mux' };
+}
 
 
 /**
@@ -1192,7 +1257,10 @@ DIGIT1_5 = DIGIT DIGIT? DIGIT? DIGIT? DIGIT? { return text(); }
 text = ByteString
 
 // any byte except NUL, CR, or LF
-ByteString = $([\x01-\x09] / [\x0B-\x0C] / [\x0E-\xFF])+
+ByteString = $Byte+
+Byte = [\x01-\x09]
+     / [\x0B-\x0C]
+     / [\x0E-\xFF]
 
 /**
  * Generic ABNF primitives
