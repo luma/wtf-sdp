@@ -1,4 +1,5 @@
 --recursive
+--compilers js:babel-core/register
 --reporter spec
 --ui bdd
 --require mocha-clean
