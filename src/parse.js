@@ -1,7 +1,7 @@
 import Tracer from 'pegjs-backtrace';
 import parser from './grammar.js';
 
-class ParserError {
+export class ParserError {
   constructor(message, backtrace) {
     this.message = message;
     this.backtrace = backtrace;
@@ -9,6 +9,11 @@ class ParserError {
 }
 
 export default (rawSdp) => {
+  if (!rawSdp) {
+    const err = new ParserError('There was no SDP to parse');
+    return Promise.reject(err);
+  }
+
   const tracer = new Tracer(rawSdp, {
     showFullPath: true,
   });

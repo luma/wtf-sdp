@@ -1,25 +1,17 @@
 /* eslint max-nested-callbacks: [0] */
 /* global before */
-import path from 'path';
-import fs from 'fs';
 import PEG from 'pegjs';
-import Bluebird from 'bluebird';
-
-const readFile = Bluebird.promisify(fs.readFile);
+import { readSrcFile, readAsset } from '../helpers/file_helpers.js';
 
 describe('Parser', function() {
-  const grammarPath = path.resolve(__dirname, '../../src/sdp.pegjs');
-  const testSdp = path.resolve(__dirname, '../assets/test.sdp');
-  let rawSdp, sdp;
+  let sdp;
 
   before(function(done) {
     Promise.all([
-      readFile(grammarPath),
-      readFile(testSdp),
-    ]).then(([grammar, _rawSdp]) => {
-      const parser = PEG.buildParser(grammar.toString());
-      rawSdp = _rawSdp.toString();
-      sdp = parser.parse(rawSdp);
+      readSrcFile('sdp.pegjs'),
+      readAsset('test.sdp'),
+    ]).then(([grammar, rawSdp]) => {
+      sdp = PEG.buildParser(grammar).parse(rawSdp);
       done();
     }).catch((err) => {
       throw err;
@@ -33,9 +25,6 @@ describe('Parser', function() {
   function getAllMediaAttr(mediaIndex, type) {
     return sdp.media[mediaIndex].attrs.filter((l) => l.type === type);
   }
-
-
-  it('maintains total order of lines');
 
   it('parses the protocol version', function() {
     // We're targetting version 0
@@ -346,5 +335,6 @@ describe('Parser', function() {
     it('parses the fmtp line');
     it('maxptime');
     it('rtcp-mux');
+    it('maintains total order of lines');
   });
 });
