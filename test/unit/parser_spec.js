@@ -147,12 +147,13 @@ describe('Parser', function() {
 
   describe('group attribute', function() {
     it('parses the BUNDLE grouping', function() {
-      const group = sdp.attributes[0];
-
+      const group = sdp.attrs[0];
       expect(group).to.eql({
         type: 'group',
-        semantics: 'BUNDLE',
-        idTags: ['audio', 'video'],
+        value: {
+          semantics: 'BUNDLE',
+          idTags: ['audio', 'video'],
+        },
       });
     });
 
@@ -167,7 +168,7 @@ describe('Parser', function() {
     it('parses a request to prompt for user authentication');
   });
 
-  describe('media level attributes', function() {
+  describe('media level attrs', function() {
     it('parses the type', function() {
       expect(sdp.media[0].type).to.equal('audio');
       expect(sdp.media[1].type).to.equal('video');
@@ -255,7 +256,7 @@ describe('Parser', function() {
       });
     });
 
-    it('parses the extmap attributes', function() {
+    it('parses the extmap attrs', function() {
       const extMappings = getAllMediaAttr(1, 'extmap');
 
       expect(extMappings[0].value).to.equal('2');
@@ -267,7 +268,7 @@ describe('Parser', function() {
       expect(extMappings[2].extension).to.equal('urn:3gpp:video-orientation');
     });
 
-    it('parses the ssrc attributes', function() {
+    it('parses the ssrc attrs', function() {
       const ssrcs = getAllMediaAttr(2, 'ssrc');
       expect(ssrcs[0].id).to.equal(750257294);
       expect(ssrcs[0].attribute).to.eql({
@@ -285,37 +286,37 @@ describe('Parser', function() {
       });
     });
 
-    it('parses the ssrc-group attributes', function() {
+    it('parses the ssrc-group attrs', function() {
       const ssrcGroup = getMediaAttr(1, 'ssrc-group');
       expect(ssrcGroup.semantics).to.equal('FID');
       expect(ssrcGroup.ids).to.eql([750257294, 3339118420]);
     });
 
-    it('parses the rtpmap attributes', function() {
+    it('parses the rtpmap attrs', function() {
       const g722 = getAllMediaAttr(0, 'rtpmap')
                         .find((r) => r.encodingName === 'G722');
 
       expect(g722.clockRate).to.equal(8000);
-      expect(g722.payloadType).to.equal('9');
+      expect(g722.format).to.equal('9');
       expect(g722.encodingParams).to.undefined;
     });
 
-    it('parses the rtpmap attributes with encoding parameters', function() {
+    it('parses the rtpmap attrs with encoding parameters', function() {
       const opus = getAllMediaAttr(0, 'rtpmap')
                           .find((r) => r.encodingName === 'opus');
       expect(opus.clockRate).to.equal(48000);
-      expect(opus.payloadType).to.equal('111');
+      expect(opus.format).to.equal('111');
       expect(opus.encodingParams).to.equal('2');
     });
 
-    it('parses the rtcp-fb attributes', function() {
+    it('parses the rtcp-fb attrs', function() {
       const nackFb = getAllMediaAttr(1, 'rtcp-fb')
                           .find((r) => r.feedback.type === 'nack');
       expect(nackFb.format).to.equal('100');
-      expect(nackFb.feedback.params.length).to.equal(0);
+      expect(nackFb.feedback.params).to.be.undefined;
     });
 
-    it('parses the rtcp-fb attributes that have parameters', function() {
+    it('parses the rtcp-fb attrs that have parameters', function() {
       const ccmFb = getAllMediaAttr(1, 'rtcp-fb')
                           .find((r) => r.feedback.type === 'ccm');
       expect(ccmFb.format).to.equal('100');
