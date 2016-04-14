@@ -12,12 +12,12 @@
     "build": "npm run buildParser && npm run babelify",
     "lint": "eslint src/**/*.js",
     "cov": "babel-node node_modules/.bin/istanbul cover _mocha",
-    "test": "npm run buildParser && npm run lint && mocha --es_staging --opts ./test/mocha.opts 'test/**/*_spec.js'",
-    "test-travis": "npm run buildParser && babel-node node_modules/.bin/istanbul cover _mocha -es_staging --opts ./test/mocha.opts  --report lcovonly 'test/**/*_spec.js'",
+    "test": "npm run buildParser && npm run lint && mocha --opts ./test/mocha.opts 'test/**/*_spec.js'",
+    "test-travis": "npm run buildParser && babel-node node_modules/.bin/istanbul cover _mocha --opts ./test/mocha.opts  --report lcovonly 'test/**/*_spec.js'",
     "report-to-codeclimate": "codeclimate-test-reporter < coverage/lcov.info",
     "prepublish": "npm run build && npm test",
-    "example": "node --es_staging --use_strict example/test.js",
-    "example2": "node --es_staging --use_strict example/test2.js"
+    "example": "node example/test.js",
+    "example2": "node example/test2.js"
   },
   "author": {
     "name": "Rolly Fordham",
