@@ -11,7 +11,7 @@
     "babelify": "babel src -d lib --source-maps",
     "build": "npm run buildParser && npm run babelify",
     "lint": "eslint src/**/*.js",
-    "cov": "babel-node node_modules/.bin/istanbul cover _mocha --opts ./test/mocha.opts",
+    "cov": "babel-node node_modules/.bin/istanbul cover _mocha -- --opts ./test/mocha.opts",
     "test": "npm run buildParser && npm run lint && mocha --opts ./test/mocha.opts",
     "test-travis": "npm run buildParser && babel-node node_modules/.bin/istanbul cover --report lcovonly _mocha -- --opts ./test/mocha.opts",
     "report-to-codeclimate": "codeclimate-test-reporter < coverage/lcov.info",
