@@ -10,11 +10,11 @@
     "buildParser": "pegjs src/sdp.pegjs src/grammar.js",
     "babelify": "babel src -d lib --source-maps",
     "build": "npm run buildParser && npm run babelify",
-    "prepublish": "npm run build",
-    "example": "node --es_staging --use_strict example/test.js",
-    "example2": "node --es_staging --use_strict example/test2.js",
+    "lint": "eslint src/**/*.js",
     "test": "npm run buildParser && npm run lint && mocha --es_staging --opts ./test/mocha.opts 'test/**/*_spec.js'",
-    "lint": "eslint src/**/*.js"
+    "prepublish": "npm run build && npm test",
+    "example": "node --es_staging --use_strict example/test.js",
+    "example2": "node --es_staging --use_strict example/test2.js"
   },
   "author": {
     "name": "Rolly Fordham",
