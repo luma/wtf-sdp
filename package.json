@@ -11,7 +11,9 @@
     "babelify": "babel src -d lib --source-maps",
     "build": "npm run buildParser && npm run babelify",
     "lint": "eslint src/**/*.js",
+    "cov": "babel-node node_modules/.bin/istanbul cover _mocha",
     "test": "npm run buildParser && npm run lint && mocha --es_staging --opts ./test/mocha.opts 'test/**/*_spec.js'",
+    "test-travis": "babel-node node_modules/.bin/istanbul cover _mocha --report lcovonly",
     "prepublish": "npm run build && npm test",
     "example": "node --es_staging --use_strict example/test.js",
     "example2": "node --es_staging --use_strict example/test2.js"
