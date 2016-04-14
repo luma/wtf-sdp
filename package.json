@@ -15,7 +15,7 @@
     "test": "npm run buildParser && npm run lint && mocha --opts ./test/mocha.opts 'test/**/*_spec.js'",
     "test-travis": "npm run buildParser && babel-node node_modules/.bin/istanbul cover _mocha --opts ./test/mocha.opts  --report lcovonly 'test/**/*_spec.js'",
     "report-to-codeclimate": "codeclimate-test-reporter < coverage/lcov.info",
-    "prepublish": "npm run build && npm test",
+    "prepublish": "npm run build",
     "example": "node example/test.js",
     "example2": "node example/test2.js"
   },
