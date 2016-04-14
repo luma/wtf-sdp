@@ -4,6 +4,22 @@ import memoize from 'lodash.memoize';
 import Attributes from './attributes.js';
 
 
+const collateFmtp = (payload, attr) => {
+  if (!payload.params) {
+    payload.params = attr.params;
+  } else {
+    payload.params = payload.params.concat(attr.params);
+  }
+};
+
+const collateRtcpFeedback = (payload, attr) => {
+  if (!payload.feedback) {
+    payload.feedback = [attr.feedback];
+  } else {
+    payload.feedback.push(attr.feedback);
+  }
+};
+
 const collatePayloads = (rawFormats, attrs) => {
   const formats = new Set(rawFormats);
   const payloads = {};
@@ -23,19 +39,11 @@ const collatePayloads = (rawFormats, attrs) => {
         break;
 
       case 'fmtp':
-        if (!payload.params) {
-          payload.params = attr.params;
-        } else {
-          payload.params = payload.params.concat(attr.params);
-        }
+        collateFmtp(payload, attr);
         break;
 
       case 'rtcp-fb':
-        if (!payload.feedback) {
-          payload.feedback = [attr.feedback];
-        } else {
-          payload.feedback.push(attr.feedback);
-        }
+        collateRtcpFeedback(payload, attr);
         break;
 
       default:
