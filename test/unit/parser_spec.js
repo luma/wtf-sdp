@@ -1,5 +1,4 @@
 /* eslint max-nested-callbacks: [0] */
-/* global before */
 import PEG from 'pegjs';
 import { readSrcFile, readAsset } from '../helpers/file_helpers.js';
 

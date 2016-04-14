@@ -233,5 +233,11 @@
     "no-plusplus": [2, {     // disallow use of unary operators, ++ and -- (off by default)
       "allowForLoopAfterthoughts": true
     }]
+  },
+
+  "globals": {
+    // Should have all been defined by the "mocha" env but I still receive errors
+    // on CodeClimate.
+    "expect": true
   }
 }
