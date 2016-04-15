@@ -1,12 +1,19 @@
 import Tracer from 'pegjs-backtrace';
 import parser from './grammar.js';
 
-export class ParserError {
-  constructor(message, backtrace) {
-    this.message = message;
-    this.backtrace = backtrace;
+export class ParserError extends Error {
+  constructor(message, stack) {
+    super(message);
+
+    if (stack) {
+      this.stack = stack;
+    } else if (Error.captureStackTrace) {
+      // Creates the this.stack getter
+      Error.captureStackTrace(this, this.constructor);
+    }
   }
 }
+
 
 export default (rawSdp) => {
   if (!rawSdp) {
