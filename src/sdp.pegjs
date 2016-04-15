@@ -445,15 +445,17 @@ semanticsExtension = token;
  */
 
 RtcpLine = "a=rtcp:" a:port details:(SP nettype SP addrtype SP $ConnectionAddress)? EOL {
-  var line = {
+  const line = {
     type: 'rtcp',
-    port: a,
+    value: {
+      port: a,
+    },
   };
 
   if (details) {
-    line.netType = details[1];
-    line.addrType = details[3];
-    line.address = details[5];
+    line.value.netType = details[1];
+    line.value.addrType = details[3];
+    line.value.address = details[5];
   }
 
   return line;
@@ -461,15 +463,17 @@ RtcpLine = "a=rtcp:" a:port details:(SP nettype SP addrtype SP $ConnectionAddres
 
 /*a=rtpmap:<payload type> <encoding name>/<clock rate> [/<encoding parameters>]*/
 RtpMapLine = "a=rtpmap:" format:fmt SP encodingName:token "/" clockRate:integer encodingParams:("/" token)? EOL {
-  var line = {
+  const line = {
     type: "rtpmap",
-    format: format,
-    encodingName: encodingName,
-    clockRate: clockRate
+    value: {
+      format: format,
+      encodingName: encodingName,
+      clockRate: clockRate,
+    },
   };
 
   if (encodingParams) {
-    line.encodingParams = encodingParams[1];
+    line.value.encodingParams = encodingParams[1];
   }
 
   return line;
@@ -492,8 +496,10 @@ DirectionLine = "a=" direction:direction EOL {
 FingerprintLine = "a=fingerprint:" hashFunc:hashFunc SP fingerprint:fingerprint EOL {
   return {
     type: 'fingerprint',
-    hashFunction: hashFunc,
-    fingerprint: fingerprint
+    value: {
+      hashFunction: hashFunc,
+      fingerprint: fingerprint,
+    },
   };
 }
 
@@ -519,24 +525,26 @@ CandidateLine = "a=candidate:" a:Foundation SP b:ComponentId SP c:Transport SP
 
   var candidate = {
     type: 'candidate',
-    foundation: a,
-    componentId: b,
-    transport: c,
-    priority: d,
-    address: e,
-    port: f,
-    candidateType: g,
-    extensions: j.map((ext) => {
-      return {name: ext[1], value: ext[3]};
-    }),
+    value: {
+      foundation: a,
+      componentId: b,
+      transport: c,
+      priority: d,
+      address: e,
+      port: f,
+      candidateType: g,
+      extensions: j.map((ext) => {
+        return {name: ext[1], value: ext[3]};
+      }),
+    },
   };
 
   if (h) {
-    candidate.relAddr = h[1];
+    candidate.value.relAddr = h[1];
   }
 
   if (i) {
-    candidate.relPort = i[1];
+    candidate.value.relPort = i[1];
   }
 
   return candidate;
@@ -637,7 +645,7 @@ IceOptionTag = $IceChar+
 RemoteCandidateLine = "a=remote-candidates:" first:RemoteCandidate rest:(SP RemoteCandidate)* EOL {
   return {
     type: 'remote-candidates',
-    candidates: [first].concat(extractFirst(rest)),
+    value: [first].concat(extractFirst(rest)),
   };
 }
 
@@ -661,11 +669,13 @@ FmtpLine = "a=fmtp:" format:fmt maybeParams:(SP+ $atext+)+ EOL {
   const params = extractFirst(maybeParams);
   const line = {
     type: 'fmtp',
-    format: format
+    value: {
+      format: format,
+    },
   };
 
   if (params.length) {
-    line.params = params;
+    line.value.params = params;
   }
 
   return line;
@@ -681,16 +691,20 @@ FmtpLine = "a=fmtp:" format:fmt maybeParams:(SP+ $atext+)+ EOL {
 SSRCLine = "a=ssrc:" id:SSRCId SP attr:attribute EOL {
   return {
     type: "ssrc",
-    id: id,
-    attribute: attr
+    value: {
+      id: id,
+      attribute: attr,
+    },
   };
 }
 
 SSRCGroupLine = "a=ssrc-group:" semantics:semantics ids:(SP SSRCId)* EOL {
   return {
     type: "ssrc-group",
-    semantics: semantics,
-    ids: extractFirst(ids),
+    value: {
+      semantics: semantics,
+      ids: extractFirst(ids),
+    },
   };
 }
 
@@ -704,8 +718,10 @@ CnameLine = "a=cname:" cname:cname EOL {
 PreviousSSRCLine = "a=previous-ssrc:" id:SSRCId previousIds:(SP SSRCId)* EOL {
   return {
     type: "cname",
-    id: id,
-    previousIds: extractFirst(previousIds),
+    value: {
+      id: id,
+      previousIds: extractFirst(previousIds),
+    },
   };
 }
 
@@ -728,16 +744,18 @@ cname = ByteString
 ExtmapLine = "a=extmap:" value:$DIGIT+ direction:("/" direction)? SP extension:extensionname extensionAttrs:(SP ExtensionAttributes)? EOL {
   var line =  {
     type: 'extmap',
-    value: value,
-    extension: extension
+    value: {
+      value: value,
+      extension: extension,
+    },
   };
 
   if (direction) {
-    line.direction = direction[1];
+    line.value.direction = direction[1];
   }
 
   if (extensionAttrs) {
-    line.extensionAttrs = extensionAttrs[1]
+    line.value.extensionAttrs = extensionAttrs[1]
   }
 
   return line;
@@ -756,11 +774,13 @@ ExtensionAttributes = ByteString
 RtcpFbLine = "a=rtcp-fb:" format:RtcpFbPt SP feedback:RtcpFbVal? EOL {
   const line =  {
     type: "rtcp-fb",
-    format: format,
+    value: {
+      format: format,
+    },
   };
 
   if (feedback) {
-    line.feedback = feedback;
+    line.value.feedback = feedback;
   }
 
   return line;

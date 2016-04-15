@@ -1,858 +1,1078 @@
 {
-    "version": 0,
-    "origin": {
-        "username": "-",
-        "session": {
-            "id": 3255555237358417400,
-            "version": 2
-        },
-        "netType": "IN",
-        "addressType": "IP4",
-        "address": "127.0.0.1"
+  "version": 0,
+  "origin": {
+    "username": "-",
+    "session": {
+      "id": 3255555237358417400,
+      "version": 2
     },
-    "sessionName": "Test SDP",
-    "times": [{
-        "start": "3034423619",
-        "stop": "3042462419",
-        "repeats": [{
-            "interval": 604800,
-            "activeDuration": 3600,
-            "offsets": [0, 90000]
-        }, {
-            "interval": "7d",
-            "activeDuration": "1h",
-            "offsets": [0, "25h"]
-        }]
-    }],
-    "attrs": [{
-        "type": "group",
-        "value": {
-            "semantics": "BUNDLE",
-            "idTags": ["audio", "video"]
-        }
+    "netType": "IN",
+    "addressType": "IP4",
+    "address": "127.0.0.1"
+  },
+  "sessionName": "Test SDP",
+  "times": [{
+    "start": "3034423619",
+    "stop": "3042462419",
+    "repeats": [{
+      "interval": 604800,
+      "activeDuration": 3600,
+      "offsets": [0, 90000]
     }, {
-        "type": "msid-semantic",
-        "value": "WMS y2Pkbz4KgqrQz9Rx1WM91xAOsAOYAYZNcucu"
-    }, {
-        "type": "ice-lite"
-    }, {
-        "type": "ice-mismatch"
-    }, {
-        "type": "ice-options",
-        "value": ["trickle"]
-    }],
-    "media": [{
-        "type": "audio",
-        "formats": ["111", "103", "104", "9", "0", "8", "126"],
-        "port": 9,
-        "protocol": "RTP/SAVPF",
-        "attrs": [{
-            "type": "rtcp",
-            "port": 9,
-            "netType": "IN",
-            "addrType": "IP4",
-            "address": "0.0.0.0"
-        }, {
-            "type": "ice-ufrag",
-            "value": "4dS4NkAMrAgKccxA"
-        }, {
-            "type": "ice-pwd",
-            "value": "VC9qlvEt54AXvF91TEYIdNe+"
-        }, {
-            "type": "fingerprint",
-            "hashFunction": "sha-256",
-            "fingerprint": "5C:A0:97:6E:70:68:12:87:8F:31:D7:C4:66:26:18:99:38:09:C1:7B:AE:AE:70:8D:31:08:7D:2D:AF:53:02:3A"
-        }, {
-            "type": "setup",
-            "value": "actpass"
-        }, {
-            "type": "mid",
-            "value": "audio"
-        }, {
-            "type": "extmap",
-            "value": "1",
-            "extension": "urn:ietf:params:rtp-hdrext:ssrc-audio-level"
-        }, {
-            "type": "extmap",
-            "value": "3",
-            "extension": "http://www.webrtc.org/experiments/rtp-hdrext/abs-send-time"
-        }, {
-            "type": "direction",
-            "value": "sendrecv"
-        }, {
-            "type": "rtcp-mux"
-        }, {
-            "type": "rtpmap",
-            "format": "111",
-            "encodingName": "opus",
-            "clockRate": 48000,
-            "encodingParams": "2"
-        }, {
-            "type": "rtcp-fb",
-            "format": "111",
-            "feedback": {
-                "type": "transport-cc"
-            }
-        }, {
-            "type": "fmtp",
-            "format": "111",
-            "params": ["minptime=10"]
-        }, {
-            "type": "rtpmap",
-            "format": "103",
-            "encodingName": "ISAC",
-            "clockRate": 16000
-        }, {
-            "type": "rtpmap",
-            "format": "104",
-            "encodingName": "ISAC",
-            "clockRate": 32000
-        }, {
-            "type": "rtpmap",
-            "format": "9",
-            "encodingName": "G722",
-            "clockRate": 8000
-        }, {
-            "type": "rtpmap",
-            "format": "0",
-            "encodingName": "PCMU",
-            "clockRate": 8000
-        }, {
-            "type": "rtpmap",
-            "format": "8",
-            "encodingName": "PCMA",
-            "clockRate": 8000
-        }, {
-            "type": "rtpmap",
-            "format": "126",
-            "encodingName": "telephone-event",
-            "clockRate": 8000
-        }, {
-            "type": "maxptime",
-            "value": 60
-        }, {
-            "type": "ssrc",
-            "id": 3610146378,
-            "attribute": {
-                "type": "cname",
-                "value": "qNn0vt04pMSU+wOo"
-            }
-        }, {
-            "type": "ssrc",
-            "id": 3610146378,
-            "attribute": {
-                "type": "msid",
-                "value": "y2Pkbz4KgqrQz9Rx1WM91xAOsAOYAYZNcucu 7df1fb93-b332-45a9-96bb-c2d259f08442"
-            }
-        }, {
-            "type": "ssrc",
-            "id": 3610146378,
-            "attribute": {
-                "type": "mslabel",
-                "value": "y2Pkbz4KgqrQz9Rx1WM91xAOsAOYAYZNcucu"
-            }
-        }, {
-            "type": "ssrc",
-            "id": 3610146378,
-            "attribute": {
-                "type": "label",
-                "value": "7df1fb93-b332-45a9-96bb-c2d259f08442"
-            }
-        }, {
-            "type": "candidate",
-            "foundation": "1",
-            "componentId": "1",
-            "transport": "UDP",
-            "priority": "2130706431",
-            "address": "10.0.1.1",
-            "port": 8998,
-            "candidateType": "host",
-            "extensions": []
-        }, {
-            "type": "candidate",
-            "foundation": "2",
-            "componentId": "1",
-            "transport": "UDP",
-            "priority": "1694498815",
-            "address": "192.0.2.3",
-            "port": 45664,
-            "candidateType": "srflx",
-            "extensions": [],
-            "relAddr": "10.0.1.1",
-            "relPort": 8998
-        }, {
-            "type": "remote-candidates",
-            "candidates": [{
-                "componentId": "1",
-                "address": "10.104.0.68",
-                "port": 50025
-            }]
-        }, {
-            "type": "remote-candidates",
-            "candidates": [{
-                "componentId": "1",
-                "address": "213.199.141.81",
-                "port": 51721
-            }, {
-                "componentId": "2",
-                "address": "213.199.141.81",
-                "port": 58975
-            }]
-        }],
-        "connections": [{
-            "netType": "IN",
-            "addressType": "IP4",
-            "address": "0.0.0.0"
-        }]
-    }, {
-        "type": "video",
-        "formats": ["100", "101", "116", "117", "96", "97", "98"],
-        "port": 9,
-        "protocol": "RTP/SAVPF",
-        "attrs": [{
-            "type": "rtcp",
-            "port": 9,
-            "netType": "IN",
-            "addrType": "IP4",
-            "address": "0.0.0.0"
-        }, {
-            "type": "ice-ufrag",
-            "value": "4dS4NkAMrAgKccxA"
-        }, {
-            "type": "ice-pwd",
-            "value": "VC9qlvEt54AXvF91TEYIdNe+"
-        }, {
-            "type": "fingerprint",
-            "hashFunction": "sha-256",
-            "fingerprint": "5C:A0:97:6E:70:68:12:87:8F:31:D7:C4:66:26:18:99:38:09:C1:7B:AE:AE:70:8D:31:08:7D:2D:AF:53:02:3A"
-        }, {
-            "type": "setup",
-            "value": "actpass"
-        }, {
-            "type": "mid",
-            "value": "video"
-        }, {
-            "type": "extmap",
-            "value": "2",
-            "extension": "urn:ietf:params:rtp-hdrext:toffset"
-        }, {
-            "type": "extmap",
-            "value": "3",
-            "extension": "http://www.webrtc.org/experiments/rtp-hdrext/abs-send-time"
-        }, {
-            "type": "extmap",
-            "value": "4",
-            "extension": "urn:3gpp:video-orientation"
-        }, {
-            "type": "direction",
-            "value": "sendonly"
-        }, {
-            "type": "rtcp-mux"
-        }, {
-            "type": "rtpmap",
-            "format": "100",
-            "encodingName": "VP8",
-            "clockRate": 90000
-        }, {
-            "type": "rtcp-fb",
-            "format": "100",
-            "feedback": {
-                "type": "ccm",
-                "params": ["fir"]
-            }
-        }, {
-            "type": "rtcp-fb",
-            "format": "100",
-            "feedback": {
-                "type": "nack"
-            }
-        }, {
-            "type": "rtcp-fb",
-            "format": "100",
-            "feedback": {
-                "type": "nack",
-                "params": ["pli"]
-            }
-        }, {
-            "type": "rtcp-fb",
-            "format": "100",
-            "feedback": {
-                "type": "goog-remb"
-            }
-        }, {
-            "type": "rtcp-fb",
-            "format": "100",
-            "feedback": {
-                "type": "transport-cc"
-            }
-        }, {
-            "type": "rtpmap",
-            "format": "101",
-            "encodingName": "VP9",
-            "clockRate": 90000
-        }, {
-            "type": "rtcp-fb",
-            "format": "101",
-            "feedback": {
-                "type": "ccm",
-                "params": ["fir"]
-            }
-        }, {
-            "type": "rtcp-fb",
-            "format": "101",
-            "feedback": {
-                "type": "nack"
-            }
-        }, {
-            "type": "rtcp-fb",
-            "format": "101",
-            "feedback": {
-                "type": "nack",
-                "params": ["pli"]
-            }
-        }, {
-            "type": "rtcp-fb",
-            "format": "101",
-            "feedback": {
-                "type": "goog-remb"
-            }
-        }, {
-            "type": "rtcp-fb",
-            "format": "101",
-            "feedback": {
-                "type": "transport-cc"
-            }
-        }, {
-            "type": "rtpmap",
-            "format": "116",
-            "encodingName": "red",
-            "clockRate": 90000
-        }, {
-            "type": "rtpmap",
-            "format": "117",
-            "encodingName": "ulpfec",
-            "clockRate": 90000
-        }, {
-            "type": "rtpmap",
-            "format": "96",
-            "encodingName": "rtx",
-            "clockRate": 90000
-        }, {
-            "type": "fmtp",
-            "format": "96",
-            "params": ["apt=100"]
-        }, {
-            "type": "rtpmap",
-            "format": "97",
-            "encodingName": "rtx",
-            "clockRate": 90000
-        }, {
-            "type": "fmtp",
-            "format": "97",
-            "params": ["apt=101"]
-        }, {
-            "type": "rtpmap",
-            "format": "98",
-            "encodingName": "rtx",
-            "clockRate": 90000
-        }, {
-            "type": "fmtp",
-            "format": "98",
-            "params": ["apt=116"]
-        }, {
-            "type": "ssrc-group",
-            "semantics": "FID",
-            "ids": [750257294, 3339118420]
-        }, {
-            "type": "ssrc",
-            "id": 750257294,
-            "attribute": {
-                "type": "cname",
-                "value": "qNn0vt04pMSU+wOo"
-            }
-        }, {
-            "type": "ssrc",
-            "id": 750257294,
-            "attribute": {
-                "type": "msid",
-                "value": "y2Pkbz4KgqrQz9Rx1WM91xAOsAOYAYZNcucu 85c70629-98cd-4ce4-8508-b9374c7baa6d"
-            }
-        }, {
-            "type": "ssrc",
-            "id": 750257294,
-            "attribute": {
-                "type": "mslabel",
-                "value": "y2Pkbz4KgqrQz9Rx1WM91xAOsAOYAYZNcucu"
-            }
-        }, {
-            "type": "ssrc",
-            "id": 750257294,
-            "attribute": {
-                "type": "label",
-                "value": "85c70629-98cd-4ce4-8508-b9374c7baa6d"
-            }
-        }, {
-            "type": "ssrc",
-            "id": 3339118420,
-            "attribute": {
-                "type": "cname",
-                "value": "qNn0vt04pMSU+wOo"
-            }
-        }, {
-            "type": "ssrc",
-            "id": 3339118420,
-            "attribute": {
-                "type": "msid",
-                "value": "y2Pkbz4KgqrQz9Rx1WM91xAOsAOYAYZNcucu 85c70629-98cd-4ce4-8508-b9374c7baa6d"
-            }
-        }, {
-            "type": "ssrc",
-            "id": 3339118420,
-            "attribute": {
-                "type": "mslabel",
-                "value": "y2Pkbz4KgqrQz9Rx1WM91xAOsAOYAYZNcucu"
-            }
-        }, {
-            "type": "ssrc",
-            "id": 3339118420,
-            "attribute": {
-                "type": "label",
-                "value": "85c70629-98cd-4ce4-8508-b9374c7baa6d"
-            }
-        }, {
-            "type": "candidate",
-            "foundation": "1",
-            "componentId": "1",
-            "transport": "UDP",
-            "priority": "2130706431",
-            "address": "10.0.1.1",
-            "port": 8998,
-            "candidateType": "host",
-            "extensions": []
-        }, {
-            "type": "candidate",
-            "foundation": "2",
-            "componentId": "1",
-            "transport": "UDP",
-            "priority": "1694498815",
-            "address": "192.0.2.3",
-            "port": 45664,
-            "candidateType": "srflx",
-            "extensions": [],
-            "relAddr": "10.0.1.1",
-            "relPort": 8998
-        }],
-        "connections": [{
-            "netType": "IN",
-            "addressType": "IP4",
-            "address": "0.0.0.0"
-        }]
-    }, {
-        "type": "video",
-        "formats": ["100", "101", "116", "117", "96", "97", "98"],
-        "port": 9,
-        "protocol": "RTP/SAVPF",
-        "attrs": [{
-            "type": "rtcp",
-            "port": 9,
-            "netType": "IN",
-            "addrType": "IP4",
-            "address": "0.0.0.0"
-        }, {
-            "type": "ice-ufrag",
-            "value": "4dS4NkAMrAgKccxA"
-        }, {
-            "type": "ice-pwd",
-            "value": "VC9qlvEt54AXvF91TEYIdNe+"
-        }, {
-            "type": "fingerprint",
-            "hashFunction": "sha-256",
-            "fingerprint": "5C:A0:97:6E:70:68:12:87:8F:31:D7:C4:66:26:18:99:38:09:C1:7B:AE:AE:70:8D:31:08:7D:2D:AF:53:02:3A"
-        }, {
-            "type": "setup",
-            "value": "actpass"
-        }, {
-            "type": "mid",
-            "value": "video2"
-        }, {
-            "type": "extmap",
-            "value": "2",
-            "extension": "urn:ietf:params:rtp-hdrext:toffset"
-        }, {
-            "type": "extmap",
-            "value": "3",
-            "extension": "http://www.webrtc.org/experiments/rtp-hdrext/abs-send-time"
-        }, {
-            "type": "extmap",
-            "value": "4",
-            "extension": "urn:3gpp:video-orientation"
-        }, {
-            "type": "direction",
-            "value": "inactive"
-        }, {
-            "type": "rtcp-mux"
-        }, {
-            "type": "rtpmap",
-            "format": "100",
-            "encodingName": "VP8",
-            "clockRate": 90000
-        }, {
-            "type": "rtcp-fb",
-            "format": "100",
-            "feedback": {
-                "type": "ccm",
-                "params": ["fir"]
-            }
-        }, {
-            "type": "rtcp-fb",
-            "format": "100",
-            "feedback": {
-                "type": "nack"
-            }
-        }, {
-            "type": "rtcp-fb",
-            "format": "100",
-            "feedback": {
-                "type": "nack",
-                "params": ["pli"]
-            }
-        }, {
-            "type": "rtcp-fb",
-            "format": "100",
-            "feedback": {
-                "type": "goog-remb"
-            }
-        }, {
-            "type": "rtcp-fb",
-            "format": "100",
-            "feedback": {
-                "type": "transport-cc"
-            }
-        }, {
-            "type": "rtpmap",
-            "format": "101",
-            "encodingName": "VP9",
-            "clockRate": 90000
-        }, {
-            "type": "rtcp-fb",
-            "format": "101",
-            "feedback": {
-                "type": "ccm",
-                "params": ["fir"]
-            }
-        }, {
-            "type": "rtcp-fb",
-            "format": "101",
-            "feedback": {
-                "type": "nack"
-            }
-        }, {
-            "type": "rtcp-fb",
-            "format": "101",
-            "feedback": {
-                "type": "nack",
-                "params": ["pli"]
-            }
-        }, {
-            "type": "rtcp-fb",
-            "format": "101",
-            "feedback": {
-                "type": "goog-remb"
-            }
-        }, {
-            "type": "rtcp-fb",
-            "format": "101",
-            "feedback": {
-                "type": "transport-cc"
-            }
-        }, {
-            "type": "rtpmap",
-            "format": "116",
-            "encodingName": "red",
-            "clockRate": 90000
-        }, {
-            "type": "rtpmap",
-            "format": "117",
-            "encodingName": "ulpfec",
-            "clockRate": 90000
-        }, {
-            "type": "rtpmap",
-            "format": "96",
-            "encodingName": "rtx",
-            "clockRate": 90000
-        }, {
-            "type": "fmtp",
-            "format": "96",
-            "params": ["apt=100"]
-        }, {
-            "type": "rtpmap",
-            "format": "97",
-            "encodingName": "rtx",
-            "clockRate": 90000
-        }, {
-            "type": "fmtp",
-            "format": "97",
-            "params": ["apt=101"]
-        }, {
-            "type": "rtpmap",
-            "format": "98",
-            "encodingName": "rtx",
-            "clockRate": 90000
-        }, {
-            "type": "fmtp",
-            "format": "98",
-            "params": ["apt=116"]
-        }, {
-            "type": "ssrc-group",
-            "semantics": "FID",
-            "ids": [750257294, 3339118420]
-        }, {
-            "type": "ssrc",
-            "id": 750257294,
-            "attribute": {
-                "type": "cname",
-                "value": "qNn0vt04pMSU+wOo"
-            }
-        }, {
-            "type": "ssrc",
-            "id": 750257294,
-            "attribute": {
-                "type": "msid",
-                "value": "y2Pkbz4KgqrQz9Rx1WM91xAOsAOYAYZNcucu 85c70629-98cd-4ce4-8508-b9374c7baa6d"
-            }
-        }, {
-            "type": "ssrc",
-            "id": 750257294,
-            "attribute": {
-                "type": "mslabel",
-                "value": "y2Pkbz4KgqrQz9Rx1WM91xAOsAOYAYZNcucu"
-            }
-        }, {
-            "type": "ssrc",
-            "id": 750257294,
-            "attribute": {
-                "type": "label",
-                "value": "85c70629-98cd-4ce4-8508-b9374c7baa6d"
-            }
-        }, {
-            "type": "ssrc",
-            "id": 3339118420,
-            "attribute": {
-                "type": "cname",
-                "value": "qNn0vt04pMSU+wOo"
-            }
-        }, {
-            "type": "ssrc",
-            "id": 3339118420,
-            "attribute": {
-                "type": "msid",
-                "value": "y2Pkbz4KgqrQz9Rx1WM91xAOsAOYAYZNcucu 85c70629-98cd-4ce4-8508-b9374c7baa6d"
-            }
-        }, {
-            "type": "ssrc",
-            "id": 3339118420,
-            "attribute": {
-                "type": "mslabel",
-                "value": "y2Pkbz4KgqrQz9Rx1WM91xAOsAOYAYZNcucu"
-            }
-        }, {
-            "type": "ssrc",
-            "id": 3339118420,
-            "attribute": {
-                "type": "label",
-                "value": "85c70629-98cd-4ce4-8508-b9374c7baa6d"
-            }
-        }, {
-            "type": "candidate",
-            "foundation": "1",
-            "componentId": "1",
-            "transport": "UDP",
-            "priority": "2130706431",
-            "address": "10.0.1.1",
-            "port": 8998,
-            "candidateType": "host",
-            "extensions": []
-        }, {
-            "type": "candidate",
-            "foundation": "2",
-            "componentId": "1",
-            "transport": "UDP",
-            "priority": "1694498815",
-            "address": "192.0.2.3",
-            "port": 45664,
-            "candidateType": "srflx",
-            "extensions": [],
-            "relAddr": "10.0.1.1",
-            "relPort": 8998
-        }],
-        "connections": [{
-            "netType": "IN",
-            "addressType": "IP4",
-            "address": "0.0.0.0"
-        }]
-    }, {
-        "type": "audio",
-        "formats": ["111", "103", "104", "9", "0", "8", "126"],
-        "port": 9,
-        "protocol": "RTP/SAVPF",
-        "attrs": [{
-            "type": "rtcp",
-            "port": 9,
-            "netType": "IN",
-            "addrType": "IP4",
-            "address": "0.0.0.0"
-        }, {
-            "type": "ice-ufrag",
-            "value": "4dS4NkAMrAgKccxA"
-        }, {
-            "type": "ice-pwd",
-            "value": "VC9qlvEt54AXvF91TEYIdNe+"
-        }, {
-            "type": "fingerprint",
-            "hashFunction": "sha-256",
-            "fingerprint": "5C:A0:97:6E:70:68:12:87:8F:31:D7:C4:66:26:18:99:38:09:C1:7B:AE:AE:70:8D:31:08:7D:2D:AF:53:02:3A"
-        }, {
-            "type": "setup",
-            "value": "actpass"
-        }, {
-            "type": "mid",
-            "value": "audio2"
-        }, {
-            "type": "extmap",
-            "value": "1",
-            "extension": "urn:ietf:params:rtp-hdrext:ssrc-audio-level"
-        }, {
-            "type": "extmap",
-            "value": "3",
-            "extension": "http://www.webrtc.org/experiments/rtp-hdrext/abs-send-time"
-        }, {
-            "type": "direction",
-            "value": "recvonly"
-        }, {
-            "type": "rtcp-mux"
-        }, {
-            "type": "rtpmap",
-            "format": "111",
-            "encodingName": "opus",
-            "clockRate": 48000,
-            "encodingParams": "2"
-        }, {
-            "type": "rtcp-fb",
-            "format": "111",
-            "feedback": {
-                "type": "transport-cc"
-            }
-        }, {
-            "type": "fmtp",
-            "format": "111",
-            "params": ["minptime=10"]
-        }, {
-            "type": "rtpmap",
-            "format": "103",
-            "encodingName": "ISAC",
-            "clockRate": 16000
-        }, {
-            "type": "rtpmap",
-            "format": "104",
-            "encodingName": "ISAC",
-            "clockRate": 32000
-        }, {
-            "type": "rtpmap",
-            "format": "9",
-            "encodingName": "G722",
-            "clockRate": 8000
-        }, {
-            "type": "rtpmap",
-            "format": "0",
-            "encodingName": "PCMU",
-            "clockRate": 8000
-        }, {
-            "type": "rtpmap",
-            "format": "8",
-            "encodingName": "PCMA",
-            "clockRate": 8000
-        }, {
-            "type": "rtpmap",
-            "format": "126",
-            "encodingName": "telephone-event",
-            "clockRate": 8000
-        }, {
-            "type": "maxptime",
-            "value": 60
-        }, {
-            "type": "ssrc",
-            "id": 3610146378,
-            "attribute": {
-                "type": "cname",
-                "value": "qNn0vt04pMSU+wOo"
-            }
-        }, {
-            "type": "ssrc",
-            "id": 3610146378,
-            "attribute": {
-                "type": "msid",
-                "value": "y2Pkbz4KgqrQz9Rx1WM91xAOsAOYAYZNcucu 7df1fb93-b332-45a9-96bb-c2d259f08442"
-            }
-        }, {
-            "type": "ssrc",
-            "id": 3610146378,
-            "attribute": {
-                "type": "mslabel",
-                "value": "y2Pkbz4KgqrQz9Rx1WM91xAOsAOYAYZNcucu"
-            }
-        }, {
-            "type": "ssrc",
-            "id": 3610146378,
-            "attribute": {
-                "type": "label",
-                "value": "7df1fb93-b332-45a9-96bb-c2d259f08442"
-            }
-        }, {
-            "type": "candidate",
-            "foundation": "1",
-            "componentId": "1",
-            "transport": "UDP",
-            "priority": "2130706431",
-            "address": "10.0.1.1",
-            "port": 8998,
-            "candidateType": "host",
-            "extensions": []
-        }, {
-            "type": "candidate",
-            "foundation": "2",
-            "componentId": "1",
-            "transport": "UDP",
-            "priority": "1694498815",
-            "address": "192.0.2.3",
-            "port": 45664,
-            "candidateType": "srflx",
-            "extensions": [],
-            "relAddr": "10.0.1.1",
-            "relPort": 8998
-        }],
-        "connections": [{
-            "netType": "IN",
-            "addressType": "IP4",
-            "address": "0.0.0.0"
-        }]
-    }],
-    "info": "A SDP for testing purposes",
-    "uri": "http://www.example.com",
-    "emails": ["test@example.com (John Doe)", "test2@example.com (John Doe2)"],
-    "phones": ["+44-171-380-7777", "+44-171-491-8888"],
-    "connection": {
-        "netType": "IN",
-        "addressType": "IP4",
-        "address": "224.2.17.12/127"
-    },
-    "bandwidths": [{
-        "type": "CT",
-        "value": 32
-    }, {
-        "type": "AS",
-        "value": 64
-    }, {
-        "type": "X-YZ",
-        "value": 128
+      "interval": "7d",
+      "activeDuration": "1h",
+      "offsets": [0, "25h"]
     }]
+  }],
+  "attrs": [{
+    "type": "group",
+    "value": {
+      "semantics": "BUNDLE",
+      "idTags": ["audio", "video"]
+    }
+  }, {
+    "type": "msid-semantic",
+    "value": "WMS y2Pkbz4KgqrQz9Rx1WM91xAOsAOYAYZNcucu"
+  }, {
+    "type": "ice-lite"
+  }, {
+    "type": "ice-mismatch"
+  }, {
+    "type": "ice-options",
+    "value": ["trickle"]
+  }],
+  "media": [{
+    "type": "audio",
+    "formats": ["111", "103", "104", "9", "0", "8", "126"],
+    "port": 9,
+    "protocol": "RTP/SAVPF",
+    "attrs": [{
+      "type": "rtcp",
+      "value": {
+        "port": 9,
+        "netType": "IN",
+        "addrType": "IP4",
+        "address": "0.0.0.0"
+      }
+    }, {
+      "type": "ice-ufrag",
+      "value": "4dS4NkAMrAgKccxA"
+    }, {
+      "type": "ice-pwd",
+      "value": "VC9qlvEt54AXvF91TEYIdNe+"
+    }, {
+      "type": "fingerprint",
+      "value": {
+        "hashFunction": "sha-256",
+        "fingerprint": "5C:A0:97:6E:70:68:12:87:8F:31:D7:C4:66:26:18:99:38:09:C1:7B:AE:AE:70:8D:31:08:7D:2D:AF:53:02:3A"
+      }
+    }, {
+      "type": "setup",
+      "value": "actpass"
+    }, {
+      "type": "mid",
+      "value": "audio"
+    }, {
+      "type": "extmap",
+      "value": {
+        "value": "1",
+        "extension": "urn:ietf:params:rtp-hdrext:ssrc-audio-level"
+      }
+    }, {
+      "type": "extmap",
+      "value": {
+        "value": "3",
+        "extension": "http://www.webrtc.org/experiments/rtp-hdrext/abs-send-time"
+      }
+    }, {
+      "type": "direction",
+      "value": "sendrecv"
+    }, {
+      "type": "rtcp-mux"
+    }, {
+      "type": "rtpmap",
+      "value": {
+        "format": "111",
+        "encodingName": "opus",
+        "clockRate": 48000,
+        "encodingParams": "2"
+      }
+    }, {
+      "type": "rtcp-fb",
+      "value": {
+        "format": "111",
+        "feedback": {
+          "type": "transport-cc"
+        }
+      }
+    }, {
+      "type": "fmtp",
+      "value": {
+        "format": "111",
+        "params": ["minptime=10"]
+      }
+    }, {
+      "type": "rtpmap",
+      "value": {
+        "format": "103",
+        "encodingName": "ISAC",
+        "clockRate": 16000
+      }
+    }, {
+      "type": "rtpmap",
+      "value": {
+        "format": "104",
+        "encodingName": "ISAC",
+        "clockRate": 32000
+      }
+    }, {
+      "type": "rtpmap",
+      "value": {
+        "format": "9",
+        "encodingName": "G722",
+        "clockRate": 8000
+      }
+    }, {
+      "type": "rtpmap",
+      "value": {
+        "format": "0",
+        "encodingName": "PCMU",
+        "clockRate": 8000
+      }
+    }, {
+      "type": "rtpmap",
+      "value": {
+        "format": "8",
+        "encodingName": "PCMA",
+        "clockRate": 8000
+      }
+    }, {
+      "type": "rtpmap",
+      "value": {
+        "format": "126",
+        "encodingName": "telephone-event",
+        "clockRate": 8000
+      }
+    }, {
+      "type": "maxptime",
+      "value": 60
+    }, {
+      "type": "ssrc",
+      "value": {
+        "id": 3610146378,
+        "attribute": {
+          "type": "cname",
+          "value": "qNn0vt04pMSU+wOo"
+        }
+      }
+    }, {
+      "type": "ssrc",
+      "value": {
+        "id": 3610146378,
+        "attribute": {
+          "type": "msid",
+          "value": "y2Pkbz4KgqrQz9Rx1WM91xAOsAOYAYZNcucu 7df1fb93-b332-45a9-96bb-c2d259f08442"
+        }
+      }
+    }, {
+      "type": "ssrc",
+      "value": {
+        "id": 3610146378,
+        "attribute": {
+          "type": "mslabel",
+          "value": "y2Pkbz4KgqrQz9Rx1WM91xAOsAOYAYZNcucu"
+        }
+      }
+    }, {
+      "type": "ssrc",
+      "value": {
+        "id": 3610146378,
+        "attribute": {
+          "type": "label",
+          "value": "7df1fb93-b332-45a9-96bb-c2d259f08442"
+        }
+      }
+    }, {
+      "type": "candidate",
+      "value": {
+        "foundation": "1",
+        "componentId": "1",
+        "transport": "UDP",
+        "priority": "2130706431",
+        "address": "10.0.1.1",
+        "port": 8998,
+        "candidateType": "host",
+        "extensions": []
+      }
+    }, {
+      "type": "candidate",
+      "value": {
+        "foundation": "2",
+        "componentId": "1",
+        "transport": "UDP",
+        "priority": "1694498815",
+        "address": "192.0.2.3",
+        "port": 45664,
+        "candidateType": "srflx",
+        "extensions": [],
+        "relAddr": "10.0.1.1",
+        "relPort": 8998
+      }
+    }, {
+      "type": "remote-candidates",
+      "value": [{
+        "componentId": "1",
+        "address": "10.104.0.68",
+        "port": 50025
+      }]
+    }, {
+      "type": "remote-candidates",
+      "value": [{
+        "componentId": "1",
+        "address": "213.199.141.81",
+        "port": 51721
+      }, {
+        "componentId": "2",
+        "address": "213.199.141.81",
+        "port": 58975
+      }]
+    }],
+    "connections": [{
+      "netType": "IN",
+      "addressType": "IP4",
+      "address": "0.0.0.0"
+    }]
+  }, {
+    "type": "video",
+    "formats": ["100", "101", "116", "117", "96", "97", "98"],
+    "port": 9,
+    "protocol": "RTP/SAVPF",
+    "attrs": [{
+      "type": "rtcp",
+      "value": {
+        "port": 9,
+        "netType": "IN",
+        "addrType": "IP4",
+        "address": "0.0.0.0"
+      }
+    }, {
+      "type": "ice-ufrag",
+      "value": "4dS4NkAMrAgKccxA"
+    }, {
+      "type": "ice-pwd",
+      "value": "VC9qlvEt54AXvF91TEYIdNe+"
+    }, {
+      "type": "fingerprint",
+      "value": {
+        "hashFunction": "sha-256",
+        "fingerprint": "5C:A0:97:6E:70:68:12:87:8F:31:D7:C4:66:26:18:99:38:09:C1:7B:AE:AE:70:8D:31:08:7D:2D:AF:53:02:3A"
+      }
+    }, {
+      "type": "setup",
+      "value": "actpass"
+    }, {
+      "type": "mid",
+      "value": "video"
+    }, {
+      "type": "extmap",
+      "value": {
+        "value": "2",
+        "extension": "urn:ietf:params:rtp-hdrext:toffset"
+      }
+    }, {
+      "type": "extmap",
+      "value": {
+        "value": "3",
+        "extension": "http://www.webrtc.org/experiments/rtp-hdrext/abs-send-time"
+      }
+    }, {
+      "type": "extmap",
+      "value": {
+        "value": "4",
+        "extension": "urn:3gpp:video-orientation"
+      }
+    }, {
+      "type": "direction",
+      "value": "sendonly"
+    }, {
+      "type": "rtcp-mux"
+    }, {
+      "type": "rtpmap",
+      "value": {
+        "format": "100",
+        "encodingName": "VP8",
+        "clockRate": 90000
+      }
+    }, {
+      "type": "rtcp-fb",
+      "value": {
+        "format": "100",
+        "feedback": {
+          "type": "ccm",
+          "params": ["fir"]
+        }
+      }
+    }, {
+      "type": "rtcp-fb",
+      "value": {
+        "format": "100",
+        "feedback": {
+          "type": "nack"
+        }
+      }
+    }, {
+      "type": "rtcp-fb",
+      "value": {
+        "format": "100",
+        "feedback": {
+          "type": "nack",
+          "params": ["pli"]
+        }
+      }
+    }, {
+      "type": "rtcp-fb",
+      "value": {
+        "format": "100",
+        "feedback": {
+          "type": "goog-remb"
+        }
+      }
+    }, {
+      "type": "rtcp-fb",
+      "value": {
+        "format": "100",
+        "feedback": {
+          "type": "transport-cc"
+        }
+      }
+    }, {
+      "type": "rtpmap",
+      "value": {
+        "format": "101",
+        "encodingName": "VP9",
+        "clockRate": 90000
+      }
+    }, {
+      "type": "rtcp-fb",
+      "value": {
+        "format": "101",
+        "feedback": {
+          "type": "ccm",
+          "params": ["fir"]
+        }
+      }
+    }, {
+      "type": "rtcp-fb",
+      "value": {
+        "format": "101",
+        "feedback": {
+          "type": "nack"
+        }
+      }
+    }, {
+      "type": "rtcp-fb",
+      "value": {
+        "format": "101",
+        "feedback": {
+          "type": "nack",
+          "params": ["pli"]
+        }
+      }
+    }, {
+      "type": "rtcp-fb",
+      "value": {
+        "format": "101",
+        "feedback": {
+          "type": "goog-remb"
+        }
+      }
+    }, {
+      "type": "rtcp-fb",
+      "value": {
+        "format": "101",
+        "feedback": {
+          "type": "transport-cc"
+        }
+      }
+    }, {
+      "type": "rtpmap",
+      "value": {
+        "format": "116",
+        "encodingName": "red",
+        "clockRate": 90000
+      }
+    }, {
+      "type": "rtpmap",
+      "value": {
+        "format": "117",
+        "encodingName": "ulpfec",
+        "clockRate": 90000
+      }
+    }, {
+      "type": "rtpmap",
+      "value": {
+        "format": "96",
+        "encodingName": "rtx",
+        "clockRate": 90000
+      }
+    }, {
+      "type": "fmtp",
+      "value": {
+        "format": "96",
+        "params": ["apt=100"]
+      }
+    }, {
+      "type": "rtpmap",
+      "value": {
+        "format": "97",
+        "encodingName": "rtx",
+        "clockRate": 90000
+      }
+    }, {
+      "type": "fmtp",
+      "value": {
+        "format": "97",
+        "params": ["apt=101"]
+      }
+    }, {
+      "type": "rtpmap",
+      "value": {
+        "format": "98",
+        "encodingName": "rtx",
+        "clockRate": 90000
+      }
+    }, {
+      "type": "fmtp",
+      "value": {
+        "format": "98",
+        "params": ["apt=116"]
+      }
+    }, {
+      "type": "ssrc-group",
+      "value": {
+        "semantics": "FID",
+        "ids": [750257294, 3339118420]
+      }
+    }, {
+      "type": "ssrc",
+      "value": {
+        "id": 750257294,
+        "attribute": {
+          "type": "cname",
+          "value": "qNn0vt04pMSU+wOo"
+        }
+      }
+    }, {
+      "type": "ssrc",
+      "value": {
+        "id": 750257294,
+        "attribute": {
+          "type": "msid",
+          "value": "y2Pkbz4KgqrQz9Rx1WM91xAOsAOYAYZNcucu 85c70629-98cd-4ce4-8508-b9374c7baa6d"
+        }
+      }
+    }, {
+      "type": "ssrc",
+      "value": {
+        "id": 750257294,
+        "attribute": {
+          "type": "mslabel",
+          "value": "y2Pkbz4KgqrQz9Rx1WM91xAOsAOYAYZNcucu"
+        }
+      }
+    }, {
+      "type": "ssrc",
+      "value": {
+        "id": 750257294,
+        "attribute": {
+          "type": "label",
+          "value": "85c70629-98cd-4ce4-8508-b9374c7baa6d"
+        }
+      }
+    }, {
+      "type": "ssrc",
+      "value": {
+        "id": 3339118420,
+        "attribute": {
+          "type": "cname",
+          "value": "qNn0vt04pMSU+wOo"
+        }
+      }
+    }, {
+      "type": "ssrc",
+      "value": {
+        "id": 3339118420,
+        "attribute": {
+          "type": "msid",
+          "value": "y2Pkbz4KgqrQz9Rx1WM91xAOsAOYAYZNcucu 85c70629-98cd-4ce4-8508-b9374c7baa6d"
+        }
+      }
+    }, {
+      "type": "ssrc",
+      "value": {
+        "id": 3339118420,
+        "attribute": {
+          "type": "mslabel",
+          "value": "y2Pkbz4KgqrQz9Rx1WM91xAOsAOYAYZNcucu"
+        }
+      }
+    }, {
+      "type": "ssrc",
+      "value": {
+        "id": 3339118420,
+        "attribute": {
+          "type": "label",
+          "value": "85c70629-98cd-4ce4-8508-b9374c7baa6d"
+        }
+      }
+    }, {
+      "type": "candidate",
+      "value": {
+        "foundation": "1",
+        "componentId": "1",
+        "transport": "UDP",
+        "priority": "2130706431",
+        "address": "10.0.1.1",
+        "port": 8998,
+        "candidateType": "host",
+        "extensions": []
+      }
+    }, {
+      "type": "candidate",
+      "value": {
+        "foundation": "2",
+        "componentId": "1",
+        "transport": "UDP",
+        "priority": "1694498815",
+        "address": "192.0.2.3",
+        "port": 45664,
+        "candidateType": "srflx",
+        "extensions": [],
+        "relAddr": "10.0.1.1",
+        "relPort": 8998
+      }
+    }],
+    "connections": [{
+      "netType": "IN",
+      "addressType": "IP4",
+      "address": "0.0.0.0"
+    }]
+  }, {
+    "type": "video",
+    "formats": ["100", "101", "116", "117", "96", "97", "98"],
+    "port": 9,
+    "protocol": "RTP/SAVPF",
+    "attrs": [{
+      "type": "rtcp",
+      "value": {
+        "port": 9,
+        "netType": "IN",
+        "addrType": "IP4",
+        "address": "0.0.0.0"
+      }
+    }, {
+      "type": "ice-ufrag",
+      "value": "4dS4NkAMrAgKccxA"
+    }, {
+      "type": "ice-pwd",
+      "value": "VC9qlvEt54AXvF91TEYIdNe+"
+    }, {
+      "type": "fingerprint",
+      "value": {
+        "hashFunction": "sha-256",
+        "fingerprint": "5C:A0:97:6E:70:68:12:87:8F:31:D7:C4:66:26:18:99:38:09:C1:7B:AE:AE:70:8D:31:08:7D:2D:AF:53:02:3A"
+      }
+    }, {
+      "type": "setup",
+      "value": "actpass"
+    }, {
+      "type": "mid",
+      "value": "video2"
+    }, {
+      "type": "extmap",
+      "value": {
+        "value": "2",
+        "extension": "urn:ietf:params:rtp-hdrext:toffset"
+      }
+    }, {
+      "type": "extmap",
+      "value": {
+        "value": "3",
+        "extension": "http://www.webrtc.org/experiments/rtp-hdrext/abs-send-time"
+      }
+    }, {
+      "type": "extmap",
+      "value": {
+        "value": "4",
+        "extension": "urn:3gpp:video-orientation"
+      }
+    }, {
+      "type": "direction",
+      "value": "inactive"
+    }, {
+      "type": "rtcp-mux"
+    }, {
+      "type": "rtpmap",
+      "value": {
+        "format": "100",
+        "encodingName": "VP8",
+        "clockRate": 90000
+      }
+    }, {
+      "type": "rtcp-fb",
+      "value": {
+        "format": "100",
+        "feedback": {
+          "type": "ccm",
+          "params": ["fir"]
+        }
+      }
+    }, {
+      "type": "rtcp-fb",
+      "value": {
+        "format": "100",
+        "feedback": {
+          "type": "nack"
+        }
+      }
+    }, {
+      "type": "rtcp-fb",
+      "value": {
+        "format": "100",
+        "feedback": {
+          "type": "nack",
+          "params": ["pli"]
+        }
+      }
+    }, {
+      "type": "rtcp-fb",
+      "value": {
+        "format": "100",
+        "feedback": {
+          "type": "goog-remb"
+        }
+      }
+    }, {
+      "type": "rtcp-fb",
+      "value": {
+        "format": "100",
+        "feedback": {
+          "type": "transport-cc"
+        }
+      }
+    }, {
+      "type": "rtpmap",
+      "value": {
+        "format": "101",
+        "encodingName": "VP9",
+        "clockRate": 90000
+      }
+    }, {
+      "type": "rtcp-fb",
+      "value": {
+        "format": "101",
+        "feedback": {
+          "type": "ccm",
+          "params": ["fir"]
+        }
+      }
+    }, {
+      "type": "rtcp-fb",
+      "value": {
+        "format": "101",
+        "feedback": {
+          "type": "nack"
+        }
+      }
+    }, {
+      "type": "rtcp-fb",
+      "value": {
+        "format": "101",
+        "feedback": {
+          "type": "nack",
+          "params": ["pli"]
+        }
+      }
+    }, {
+      "type": "rtcp-fb",
+      "value": {
+        "format": "101",
+        "feedback": {
+          "type": "goog-remb"
+        }
+      }
+    }, {
+      "type": "rtcp-fb",
+      "value": {
+        "format": "101",
+        "feedback": {
+          "type": "transport-cc"
+        }
+      }
+    }, {
+      "type": "rtpmap",
+      "value": {
+        "format": "116",
+        "encodingName": "red",
+        "clockRate": 90000
+      }
+    }, {
+      "type": "rtpmap",
+      "value": {
+        "format": "117",
+        "encodingName": "ulpfec",
+        "clockRate": 90000
+      }
+    }, {
+      "type": "rtpmap",
+      "value": {
+        "format": "96",
+        "encodingName": "rtx",
+        "clockRate": 90000
+      }
+    }, {
+      "type": "fmtp",
+      "value": {
+        "format": "96",
+        "params": ["apt=100"]
+      }
+    }, {
+      "type": "rtpmap",
+      "value": {
+        "format": "97",
+        "encodingName": "rtx",
+        "clockRate": 90000
+      }
+    }, {
+      "type": "fmtp",
+      "value": {
+        "format": "97",
+        "params": ["apt=101"]
+      }
+    }, {
+      "type": "rtpmap",
+      "value": {
+        "format": "98",
+        "encodingName": "rtx",
+        "clockRate": 90000
+      }
+    }, {
+      "type": "fmtp",
+      "value": {
+        "format": "98",
+        "params": ["apt=116"]
+      }
+    }, {
+      "type": "ssrc-group",
+      "value": {
+        "semantics": "FID",
+        "ids": [750257294, 3339118420]
+      }
+    }, {
+      "type": "ssrc",
+      "value": {
+        "id": 750257294,
+        "attribute": {
+          "type": "cname",
+          "value": "qNn0vt04pMSU+wOo"
+        }
+      }
+    }, {
+      "type": "ssrc",
+      "value": {
+        "id": 750257294,
+        "attribute": {
+          "type": "msid",
+          "value": "y2Pkbz4KgqrQz9Rx1WM91xAOsAOYAYZNcucu 85c70629-98cd-4ce4-8508-b9374c7baa6d"
+        }
+      }
+    }, {
+      "type": "ssrc",
+      "value": {
+        "id": 750257294,
+        "attribute": {
+          "type": "mslabel",
+          "value": "y2Pkbz4KgqrQz9Rx1WM91xAOsAOYAYZNcucu"
+        }
+      }
+    }, {
+      "type": "ssrc",
+      "value": {
+        "id": 750257294,
+        "attribute": {
+          "type": "label",
+          "value": "85c70629-98cd-4ce4-8508-b9374c7baa6d"
+        }
+      }
+    }, {
+      "type": "ssrc",
+      "value": {
+        "id": 3339118420,
+        "attribute": {
+          "type": "cname",
+          "value": "qNn0vt04pMSU+wOo"
+        }
+      }
+    }, {
+      "type": "ssrc",
+      "value": {
+        "id": 3339118420,
+        "attribute": {
+          "type": "msid",
+          "value": "y2Pkbz4KgqrQz9Rx1WM91xAOsAOYAYZNcucu 85c70629-98cd-4ce4-8508-b9374c7baa6d"
+        }
+      }
+    }, {
+      "type": "ssrc",
+      "value": {
+        "id": 3339118420,
+        "attribute": {
+          "type": "mslabel",
+          "value": "y2Pkbz4KgqrQz9Rx1WM91xAOsAOYAYZNcucu"
+        }
+      }
+    }, {
+      "type": "ssrc",
+      "value": {
+        "id": 3339118420,
+        "attribute": {
+          "type": "label",
+          "value": "85c70629-98cd-4ce4-8508-b9374c7baa6d"
+        }
+      }
+    }, {
+      "type": "candidate",
+      "value": {
+        "foundation": "1",
+        "componentId": "1",
+        "transport": "UDP",
+        "priority": "2130706431",
+        "address": "10.0.1.1",
+        "port": 8998,
+        "candidateType": "host",
+        "extensions": []
+      }
+    }, {
+      "type": "candidate",
+      "value": {
+        "foundation": "2",
+        "componentId": "1",
+        "transport": "UDP",
+        "priority": "1694498815",
+        "address": "192.0.2.3",
+        "port": 45664,
+        "candidateType": "srflx",
+        "extensions": [],
+        "relAddr": "10.0.1.1",
+        "relPort": 8998
+      }
+    }],
+    "connections": [{
+      "netType": "IN",
+      "addressType": "IP4",
+      "address": "0.0.0.0"
+    }]
+  }, {
+    "type": "audio",
+    "formats": ["111", "103", "104", "9", "0", "8", "126"],
+    "port": 9,
+    "protocol": "RTP/SAVPF",
+    "attrs": [{
+      "type": "rtcp",
+      "value": {
+        "port": 9,
+        "netType": "IN",
+        "addrType": "IP4",
+        "address": "0.0.0.0"
+      }
+    }, {
+      "type": "ice-ufrag",
+      "value": "4dS4NkAMrAgKccxA"
+    }, {
+      "type": "ice-pwd",
+      "value": "VC9qlvEt54AXvF91TEYIdNe+"
+    }, {
+      "type": "fingerprint",
+      "value": {
+        "hashFunction": "sha-256",
+        "fingerprint": "5C:A0:97:6E:70:68:12:87:8F:31:D7:C4:66:26:18:99:38:09:C1:7B:AE:AE:70:8D:31:08:7D:2D:AF:53:02:3A"
+      }
+    }, {
+      "type": "setup",
+      "value": "actpass"
+    }, {
+      "type": "mid",
+      "value": "audio2"
+    }, {
+      "type": "extmap",
+      "value": {
+        "value": "1",
+        "extension": "urn:ietf:params:rtp-hdrext:ssrc-audio-level"
+      }
+    }, {
+      "type": "extmap",
+      "value": {
+        "value": "3",
+        "extension": "http://www.webrtc.org/experiments/rtp-hdrext/abs-send-time"
+      }
+    }, {
+      "type": "direction",
+      "value": "recvonly"
+    }, {
+      "type": "rtcp-mux"
+    }, {
+      "type": "rtpmap",
+      "value": {
+        "format": "111",
+        "encodingName": "opus",
+        "clockRate": 48000,
+        "encodingParams": "2"
+      }
+    }, {
+      "type": "rtcp-fb",
+      "value": {
+        "format": "111",
+        "feedback": {
+          "type": "transport-cc"
+        }
+      }
+    }, {
+      "type": "fmtp",
+      "value": {
+        "format": "111",
+        "params": ["minptime=10"]
+      }
+    }, {
+      "type": "rtpmap",
+      "value": {
+        "format": "103",
+        "encodingName": "ISAC",
+        "clockRate": 16000
+      }
+    }, {
+      "type": "rtpmap",
+      "value": {
+        "format": "104",
+        "encodingName": "ISAC",
+        "clockRate": 32000
+      }
+    }, {
+      "type": "rtpmap",
+      "value": {
+        "format": "9",
+        "encodingName": "G722",
+        "clockRate": 8000
+      }
+    }, {
+      "type": "rtpmap",
+      "value": {
+        "format": "0",
+        "encodingName": "PCMU",
+        "clockRate": 8000
+      }
+    }, {
+      "type": "rtpmap",
+      "value": {
+        "format": "8",
+        "encodingName": "PCMA",
+        "clockRate": 8000
+      }
+    }, {
+      "type": "rtpmap",
+      "value": {
+        "format": "126",
+        "encodingName": "telephone-event",
+        "clockRate": 8000
+      }
+    }, {
+      "type": "maxptime",
+      "value": 60
+    }, {
+      "type": "ssrc",
+      "value": {
+        "id": 3610146378,
+        "attribute": {
+          "type": "cname",
+          "value": "qNn0vt04pMSU+wOo"
+        }
+      }
+    }, {
+      "type": "ssrc",
+      "value": {
+        "id": 3610146378,
+        "attribute": {
+          "type": "msid",
+          "value": "y2Pkbz4KgqrQz9Rx1WM91xAOsAOYAYZNcucu 7df1fb93-b332-45a9-96bb-c2d259f08442"
+        }
+      }
+    }, {
+      "type": "ssrc",
+      "value": {
+        "id": 3610146378,
+        "attribute": {
+          "type": "mslabel",
+          "value": "y2Pkbz4KgqrQz9Rx1WM91xAOsAOYAYZNcucu"
+        }
+      }
+    }, {
+      "type": "ssrc",
+      "value": {
+        "id": 3610146378,
+        "attribute": {
+          "type": "label",
+          "value": "7df1fb93-b332-45a9-96bb-c2d259f08442"
+        }
+      }
+    }, {
+      "type": "candidate",
+      "value": {
+        "foundation": "1",
+        "componentId": "1",
+        "transport": "UDP",
+        "priority": "2130706431",
+        "address": "10.0.1.1",
+        "port": 8998,
+        "candidateType": "host",
+        "extensions": []
+      }
+    }, {
+      "type": "candidate",
+      "value": {
+        "foundation": "2",
+        "componentId": "1",
+        "transport": "UDP",
+        "priority": "1694498815",
+        "address": "192.0.2.3",
+        "port": 45664,
+        "candidateType": "srflx",
+        "extensions": [],
+        "relAddr": "10.0.1.1",
+        "relPort": 8998
+      }
+    }],
+    "connections": [{
+      "netType": "IN",
+      "addressType": "IP4",
+      "address": "0.0.0.0"
+    }]
+  }],
+  "info": "A SDP for testing purposes",
+  "uri": "http://www.example.com",
+  "emails": ["test@example.com (John Doe)", "test2@example.com (John Doe2)"],
+  "phones": ["+44-171-380-7777", "+44-171-491-8888"],
+  "connection": {
+    "netType": "IN",
+    "addressType": "IP4",
+    "address": "224.2.17.12/127"
+  },
+  "bandwidths": [{
+    "type": "CT",
+    "value": 32
+  }, {
+    "type": "AS",
+    "value": 64
+  }, {
+    "type": "X-YZ",
+    "value": 128
+  }]
 }

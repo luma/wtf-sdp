@@ -1,0 +1,191 @@
+[{
+  "type": "rtcp",
+  "value": {
+    "port": 9,
+    "netType": "IN",
+    "addrType": "IP4",
+    "address": "0.0.0.0"
+  }
+}, {
+  "type": "ice-ufrag",
+  "value": "4dS4NkAMrAgKccxA"
+}, {
+  "type": "ice-pwd",
+  "value": "VC9qlvEt54AXvF91TEYIdNe+"
+}, {
+  "type": "fingerprint",
+  "value": {
+    "hashFunction": "sha-256",
+    "fingerprint": "5C:A0:97:6E:70:68:12:87:8F:31:D7:C4:66:26:18:99:38:09:C1:7B:AE:AE:70:8D:31:08:7D:2D:AF:53:02:3A"
+  }
+}, {
+  "type": "setup",
+  "value": "actpass"
+}, {
+  "type": "mid",
+  "value": "audio"
+}, {
+  "type": "extmap",
+  "value": {
+    "value": "1",
+    "extension": "urn:ietf:params:rtp-hdrext:ssrc-audio-level"
+  }
+}, {
+  "type": "extmap",
+  "value": {
+    "value": "3",
+    "extension": "http://www.webrtc.org/experiments/rtp-hdrext/abs-send-time"
+  }
+}, {
+  "type": "direction",
+  "value": "sendrecv"
+}, {
+  "type": "rtcp-mux"
+}, {
+  "type": "rtpmap",
+  "value": {
+    "format": "111",
+    "encodingName": "opus",
+    "clockRate": 48000,
+    "encodingParams": "2"
+  }
+}, {
+  "type": "rtcp-fb",
+  "value": {
+    "format": "111",
+    "feedback": {
+      "type": "transport-cc"
+    }
+  }
+}, {
+  "type": "fmtp",
+  "value": {
+    "format": "111",
+    "params": ["minptime=10"]
+  }
+}, {
+  "type": "rtpmap",
+  "value": {
+    "format": "103",
+    "encodingName": "ISAC",
+    "clockRate": 16000
+  }
+}, {
+  "type": "rtpmap",
+  "value": {
+    "format": "104",
+    "encodingName": "ISAC",
+    "clockRate": 32000
+  }
+}, {
+  "type": "rtpmap",
+  "value": {
+    "format": "9",
+    "encodingName": "G722",
+    "clockRate": 8000
+  }
+}, {
+  "type": "rtpmap",
+  "value": {
+    "format": "0",
+    "encodingName": "PCMU",
+    "clockRate": 8000
+  }
+}, {
+  "type": "rtpmap",
+  "value": {
+    "format": "8",
+    "encodingName": "PCMA",
+    "clockRate": 8000
+  }
+}, {
+  "type": "rtpmap",
+  "value": {
+    "format": "126",
+    "encodingName": "telephone-event",
+    "clockRate": 8000
+  }
+}, {
+  "type": "maxptime",
+  "value": 60
+}, {
+  "type": "ssrc",
+  "value": {
+    "id": 3610146378,
+    "attribute": {
+      "type": "cname",
+      "value": "qNn0vt04pMSU+wOo"
+    }
+  }
+}, {
+  "type": "ssrc",
+  "value": {
+    "id": 3610146378,
+    "attribute": {
+      "type": "msid",
+      "value": "y2Pkbz4KgqrQz9Rx1WM91xAOsAOYAYZNcucu 7df1fb93-b332-45a9-96bb-c2d259f08442"
+    }
+  }
+}, {
+  "type": "ssrc",
+  "value": {
+    "id": 3610146378,
+    "attribute": {
+      "type": "mslabel",
+      "value": "y2Pkbz4KgqrQz9Rx1WM91xAOsAOYAYZNcucu"
+    }
+  }
+}, {
+  "type": "ssrc",
+  "value": {
+    "id": 3610146378,
+    "attribute": {
+      "type": "label",
+      "value": "7df1fb93-b332-45a9-96bb-c2d259f08442"
+    }
+  }
+}, {
+  "type": "candidate",
+  "value": {
+    "foundation": "1",
+    "componentId": "1",
+    "transport": "UDP",
+    "priority": "2130706431",
+    "address": "10.0.1.1",
+    "port": 8998,
+    "candidateType": "host",
+    "extensions": []
+  }
+}, {
+  "type": "candidate",
+  "value": {
+    "foundation": "2",
+    "componentId": "1",
+    "transport": "UDP",
+    "priority": "1694498815",
+    "address": "192.0.2.3",
+    "port": 45664,
+    "candidateType": "srflx",
+    "extensions": [],
+    "relAddr": "10.0.1.1",
+    "relPort": 8998
+  }
+}, {
+  "type": "remote-candidates",
+  "value": [{
+    "componentId": "1",
+    "address": "10.104.0.68",
+    "port": 50025
+  }]
+}, {
+  "type": "remote-candidates",
+  "value": [{
+    "componentId": "1",
+    "address": "213.199.141.81",
+    "port": 51721
+  }, {
+    "componentId": "2",
+    "address": "213.199.141.81",
+    "port": 58975
+  }]
+}]

@@ -1,16 +1,13 @@
 /* eslint max-nested-callbacks: [0] */
-import PEG from 'pegjs';
-import { readSrcFile, readAsset } from '../helpers/file_helpers.js';
+import parser from '../../src/grammar.js';
+import { readAsset } from '../helpers/file_helpers.js';
 
 describe('Parser', function() {
   let sdp;
 
   before(function(done) {
-    Promise.all([
-      readSrcFile('sdp.pegjs'),
-      readAsset('test.sdp'),
-    ]).then(([grammar, rawSdp]) => {
-      sdp = PEG.buildParser(grammar).parse(rawSdp);
+    readAsset('test.sdp').then((rawSdp) => {
+      sdp = parser.parse(rawSdp);
       done();
     }).catch((err) => {
       throw err;
@@ -22,7 +19,9 @@ describe('Parser', function() {
   }
 
   function getAllMediaAttr(mediaIndex, type) {
-    return sdp.media[mediaIndex].attrs.filter((l) => l.type === type);
+    return sdp.media[mediaIndex].attrs.filter((l) => l.type === type).map((attr) => {
+      return attr.value;
+    });
   }
 
   it('parses the protocol version', function() {
@@ -224,9 +223,11 @@ describe('Parser', function() {
 
       expect(fingerprint).to.eql({
         type: 'fingerprint',
-        hashFunction: 'sha-256',
-        fingerprint: '5C:A0:97:6E:70:68:12:87:8F:31:D7:C4:66:26:18:99:38:09:C1:' +
-                     '7B:AE:AE:70:8D:31:08:7D:2D:AF:53:02:3A',
+        value: {
+          hashFunction: 'sha-256',
+          fingerprint: '5C:A0:97:6E:70:68:12:87:8F:31:D7:C4:66:26:18:99:38:09:C1:' +
+                       '7B:AE:AE:70:8D:31:08:7D:2D:AF:53:02:3A',
+        },
       });
     });
 
@@ -248,23 +249,25 @@ describe('Parser', function() {
       const rtcp = getMediaAttr(0, 'rtcp');
       expect(rtcp).to.eql({
         type: 'rtcp',
-        port: 9,
-        netType: 'IN',
-        addrType: 'IP4',
-        address: '0.0.0.0',
+        value: {
+          port: 9,
+          netType: 'IN',
+          addrType: 'IP4',
+          address: '0.0.0.0',
+        },
       });
     });
 
     it('parses the extmap attrs', function() {
-      const extMappings = getAllMediaAttr(1, 'extmap');
+      const [ext1, ext2, ext3] = getAllMediaAttr(1, 'extmap');
 
-      expect(extMappings[0].value).to.equal('2');
-      expect(extMappings[0].extension).to.equal('urn:ietf:params:rtp-hdrext:toffset');
-      expect(extMappings[1].value).to.equal('3');
-      expect(extMappings[1].extension)
+      expect(ext1.value).to.equal('2');
+      expect(ext1.extension).to.equal('urn:ietf:params:rtp-hdrext:toffset');
+      expect(ext2.value).to.equal('3');
+      expect(ext2.extension)
         .to.equal('http://www.webrtc.org/experiments/rtp-hdrext/abs-send-time');
-      expect(extMappings[2].value).to.equal('4');
-      expect(extMappings[2].extension).to.equal('urn:3gpp:video-orientation');
+      expect(ext3.value).to.equal('4');
+      expect(ext3.extension).to.equal('urn:3gpp:video-orientation');
     });
 
     it('parses the ssrc attrs', function() {
@@ -286,7 +289,7 @@ describe('Parser', function() {
     });
 
     it('parses the ssrc-group attrs', function() {
-      const ssrcGroup = getMediaAttr(1, 'ssrc-group');
+      const ssrcGroup = getMediaAttr(1, 'ssrc-group').value;
       expect(ssrcGroup.semantics).to.equal('FID');
       expect(ssrcGroup.ids).to.eql([750257294, 3339118420]);
     });

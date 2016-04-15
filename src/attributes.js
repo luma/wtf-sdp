@@ -10,7 +10,8 @@ export default class Attributes {
         value: memoize((type) => self.find((attr) => attr.type === type)),
       },
       get: {
-        value: memoize((type) => self.filter((attr) => attr.type === type)),
+        value: memoize((type) => self.filter((attr) => attr.type === type)
+                                     .map((attr) => attr.value)),
       },
     });
   }
@@ -28,12 +29,20 @@ export default class Attributes {
     return this.first(type) !== void 0;
   }
 
-  find(callback, thisArg) {
-    const attr = this.all.find(callback, thisArg);
+  find(predicate, thisArg) {
+    if (typeof predicate !== 'function') {
+      throw new TypeError('predicate must be a function');
+    }
+
+    const attr = this.all.find(predicate, thisArg);
     return attr ? attr.value : void 0;
   }
 
-  filter(callback, thisArg) {
-    return this.all.filter(callback, thisArg);
+  filter(predicate, thisArg) {
+    if (typeof predicate !== 'function') {
+      throw new TypeError('predicate must be a function');
+    }
+
+    return this.all.filter(predicate, thisArg);
   }
 }
