@@ -1,5 +1,9 @@
 # WTF SDP
 
+[![Build Status](https://travis-ci.org/luma/wtf-sdp.svg?branch=master)](https://travis-ci.org/luma/wtf-sdp)
+[![Code Climate](https://codeclimate.com/github/luma/wtf-sdp/badges/gpa.svg)](https://codeclimate.com/github/luma/wtf-sdp)
+[![Test Coverage](https://codeclimate.com/github/luma/wtf-sdp/badges/coverage.svg)](https://codeclimate.com/github/luma/wtf-sdp/coverage)
+
 
 ### Motivation
 
