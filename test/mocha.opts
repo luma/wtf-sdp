@@ -3,5 +3,5 @@
 --reporter spec
 --ui bdd
 --require mocha-clean
---require test/support/babel
+--require babel-polyfill
 --require test/support/node

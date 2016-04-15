@@ -4,5 +4,10 @@
   ],
   "plugins": [
   ],
-  "compact" : true
+  "sourceMaps": true,
+  "env": {
+    "test": {
+      "sourceMaps": "inline"
+    }
+  }
 }
