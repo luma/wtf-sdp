@@ -33,7 +33,7 @@
     "lodash.memoize": "^4.0.3",
     "lodash.omit": "^4.2.1",
     "pegjs-backtrace": "^0.1.1",
-    "results": "^0.13.0",
+    "results": "^0.13.0"
   },
   "devDependencies": {
     "babel-cli": "^6.7.5",
@@ -54,7 +54,7 @@
     "eslint": "^1.10.3",
     "eslint-config-es6": "luma/eslint-config-es6",
     "eslint-plugin-require-path-exists": "^1.1.5",
-    "istanbul": "^0.4.3",
+    "istanbul": "^1.0.0-alpha.2",
     "mocha": "^2.4.5",
     "mocha-clean": "^1.0.0",
     "pegjs": "^0.9.0",
