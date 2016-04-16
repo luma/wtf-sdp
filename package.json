@@ -16,8 +16,8 @@
     "test-travis": "BABEL_ENV=test rm -rf ./coverage && npm run buildParser && babel-node node_modules/.bin/istanbul cover --report lcovonly _mocha -- --opts ./test/mocha.opts ./test",
     "report-to-codeclimate": "codeclimate-test-reporter < coverage/lcov.info",
     "prepublish": "npm run build",
-    "example": "node example/test.js",
-    "example2": "node example/test2.js"
+    "example": "babel-node example/test.js",
+    "example2": "babel-node example/test2.js"
   },
   "author": {
     "name": "Rolly Fordham",
@@ -29,9 +29,7 @@
   },
   "dependencies": {
     "babel-polyfill": "^6.7.4",
-    "lodash.assignin": "^4.0.8",
     "lodash.memoize": "^4.0.3",
-    "lodash.omit": "^4.2.1",
     "pegjs-backtrace": "^0.1.1",
     "results": "^0.13.0"
   },
