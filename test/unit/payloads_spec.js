@@ -1,6 +1,6 @@
 /* eslint max-nested-callbacks: [0] */
 import { collatePayloads, collateAttr } from '../../src/payloads.js';
-import { readAsset } from '../helpers/file_helpers.js';
+import { readJsonAsset } from '../helpers/file_helpers.js';
 
 describe('Payloads', function() {
   const rtcpFbs = [
@@ -60,8 +60,7 @@ describe('Payloads', function() {
     let payloads, attrs, formats;
 
     beforeEach(function() {
-      return readAsset('test_sdp.json').then((sdpJSONText) => {
-        const sdpJson = JSON.parse(sdpJSONText);
+      return readJsonAsset('test_sdp.json').then((sdpJson) => {
         attrs = sdpJson.media[1].attrs;
         formats = sdpJson.media[1].formats;
         payloads = collatePayloads(formats, attrs);

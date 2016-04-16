@@ -1,13 +1,13 @@
 /* eslint max-nested-callbacks: [0] */
 import Attributes from '../../src/attributes.js';
-import { readAsset } from '../helpers/file_helpers.js';
+import { readJsonAsset } from '../helpers/file_helpers.js';
 
 describe('Attributes', function() {
   let attrs, rawAttrs;
 
   beforeEach(function() {
-    return readAsset('test_attributes_sdp.json').then((_rawAttrs) => {
-      rawAttrs = JSON.parse(_rawAttrs);
+    return readJsonAsset('test_attributes_sdp.json').then((_rawAttrs) => {
+      rawAttrs = _rawAttrs;
       attrs = new Attributes(rawAttrs);
     });
   });

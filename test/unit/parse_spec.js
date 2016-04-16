@@ -1,13 +1,13 @@
 import { default as parse, ParserError } from '../../src/parse.js';
-import { readAsset } from '../helpers/file_helpers.js';
+import { readAsset, readJsonAsset } from '../helpers/file_helpers.js';
 
 describe('Parse', function() {
   it('resolves with the parsed sdp when the input is valid SDP', function() {
     return Promise.all([
       readAsset('test.sdp'),
-      readAsset('test_sdp.json'),
+      readJsonAsset('test_sdp.json'),
     ]).then(([rawSdp, expectedJson]) => {
-      return parse(rawSdp).should.become(JSON.parse(expectedJson));
+      return parse(rawSdp).should.become(expectedJson);
     });
   });
 
