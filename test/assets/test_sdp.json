@@ -262,6 +262,9 @@
       "type": "ice-pwd",
       "value": "VC9qlvEt54AXvF91TEYIdNe+"
     }, {
+      "type": "ice-options",
+      "value": ["interpretiveDance"]
+    }, {
       "type": "fingerprint",
       "value": {
         "hashFunction": "sha-256",

@@ -6,6 +6,10 @@
  */
 {
   function extractFirst(array) {
+    if (array.length === 0) {
+      return [];
+    }
+
     return array.map((element) => element[1]);
   }
 

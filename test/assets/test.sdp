@@ -54,6 +54,7 @@ c=IN IP4 0.0.0.0
 a=rtcp:9 IN IP4 0.0.0.0
 a=ice-ufrag:4dS4NkAMrAgKccxA
 a=ice-pwd:VC9qlvEt54AXvF91TEYIdNe+
+a=ice-options:interpretiveDance
 a=fingerprint:sha-256 5C:A0:97:6E:70:68:12:87:8F:31:D7:C4:66:26:18:99:38:09:C1:7B:AE:AE:70:8D:31:08:7D:2D:AF:53:02:3A
 a=setup:actpass
 a=mid:video

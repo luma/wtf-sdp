@@ -21,3 +21,9 @@ export const readSrcFile = (srcPath) => {
 export const readAsset = (assetPath) => {
   return readFile(path.join(assetDirPath, assetPath));
 };
+
+export const readJsonAsset = (assetPath) => {
+  return readFile(path.join(assetDirPath, assetPath)).then((json) => {
+    return JSON.parse(json);
+  });
+};
