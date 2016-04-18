@@ -52,6 +52,10 @@ export default class Sdp {
     return this.raw.connection;
   }
 
+  get groups() {
+    return this.attrs.get('group');
+  }
+
   get ice() {
     return {
       pwd: this.attrs.first('ice-pwd'),
