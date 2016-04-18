@@ -28,3 +28,4 @@ tmp/logs
 src/grammar.js
 
 .DS_Store
+TODO.md
