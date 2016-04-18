@@ -351,8 +351,32 @@ describe('Parser', function() {
       expect(ccmFb.feedback.params).to.eql(['fir']);
     });
 
-    describe('candidate', function() {
+    it('parses the candidate', function() {
+      const candidates = getAllMediaAttr(0, 'candidate');
 
+      expect(candidates[0]).to.eql({
+        foundation: '1',
+        componentId: '1',
+        transport: 'UDP',
+        priority: '2130706431',
+        address: '10.0.1.1',
+        port: 8998,
+        candidateType: 'host',
+        extensions: [],
+      });
+
+      expect(candidates[1]).to.eql({
+        foundation: '2',
+        componentId: '1',
+        transport: 'UDP',
+        priority: '1694498815',
+        address: '192.0.2.3',
+        port: 45664,
+        candidateType: 'srflx',
+        extensions: [],
+        relAddr: '10.0.1.1',
+        relPort: 8998,
+      });
     });
 
     it('parses ice-options', function() {
