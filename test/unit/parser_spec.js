@@ -143,6 +143,39 @@ describe('Parser', function() {
     });
   });
 
+  it('parses ice-lite', function() {
+    expect(sdp.attrs[2]).to.eql({
+      type: 'ice-lite',
+    });
+  });
+
+  it('parses ice-mismatch', function() {
+    expect(sdp.attrs[3]).to.eql({
+      type: 'ice-mismatch',
+    });
+  });
+
+  it('parses ice-options', function() {
+    expect(sdp.attrs[4]).to.eql({
+      type: 'ice-options',
+      value: ['trickle'],
+    });
+  });
+
+  it('parses ice-ufrag', function() {
+    expect(sdp.attrs[5]).to.eql({
+      type: 'ice-ufrag',
+      value: '4dS4NkAMrAgKccxA',
+    });
+  });
+
+  it('parses ice-pwd', function() {
+    expect(sdp.attrs[6]).to.eql({
+      type: 'ice-pwd',
+      value: 'VC9qlvEt54AXvF91TEYIdNe+',
+    });
+  });
+
   describe('group attribute', function() {
     it('parses the BUNDLE grouping', function() {
       const group = sdp.attrs[0];
@@ -157,13 +190,6 @@ describe('Parser', function() {
 
     it('parses the Lip Synchronization (LS) grouping');
     it('parses the Flow Identification (FID) grouping');
-  });
-
-  describe('encryption keys', function() {
-    it('parses a clear key');
-    it('parses a base64 encoded key');
-    it('parses a URI location of the key');
-    it('parses a request to prompt for user authentication');
   });
 
   describe('media level attrs', function() {
@@ -329,15 +355,104 @@ describe('Parser', function() {
 
     });
 
-    it('parses ice-pwd');
-    it('parses ice-ufrag');
-    it('parses ice-options');
-    it('parses remote-candidates');
-    it('parses previous-ssrc');
-    it('parses the encryption key line');
-    it('parses the fmtp line');
-    it('maxptime');
-    it('rtcp-mux');
+    it('parses ice-options', function() {
+      const iceOptions = getMediaAttr(1, 'ice-options');
+      expect(iceOptions).to.eql({
+        type: 'ice-options',
+        value: ['interpretiveDance'],
+      });
+    });
+
+    it('parses ice-ufrag', function() {
+      const iceUfrag = getMediaAttr(1, 'ice-ufrag');
+      expect(iceUfrag).to.eql({
+        type: 'ice-ufrag',
+        value: '4dS4NkAMrAgKccxA',
+      });
+    });
+
+    it('parses ice-pwd', function() {
+      const icePwd = getMediaAttr(1, 'ice-pwd');
+      expect(icePwd).to.eql({
+        type: 'ice-pwd',
+        value: 'VC9qlvEt54AXvF91TEYIdNe+',
+      });
+    });
+
+    it('maxptime', function() {
+      expect(getMediaAttr(0, 'maxptime')).to.eql({
+        type: 'maxptime',
+        value: 60,
+      });
+    });
+
+    it('rtcp-mux', function() {
+      expect(getMediaAttr(1, 'rtcp-mux')).to.eql({
+        type: 'rtcp-mux',
+      });
+    });
+
+    it('parses remote-candidates', function() {
+      const remoteCandidates = getAllMediaAttr(0, 'remote-candidates');
+      expect(remoteCandidates[0]).to.eql([{
+        componentId: '1',
+        address: '10.104.0.68',
+        port: 50025,
+      }]);
+
+      expect(remoteCandidates[1]).to.eql([{
+        componentId: '1',
+        address: '213.199.141.81',
+        port: 51721,
+      }, {
+        componentId: '2',
+        address: '213.199.141.81',
+        port: 58975,
+      }]);
+    });
+
+    it('parses the fmtp line', function() {
+      const fmtp = getMediaAttr(1, 'fmtp');
+      expect(fmtp).to.eql({
+        type: 'fmtp',
+        value: {
+          format: '96',
+          params: ['apt=100'],
+        },
+      });
+    });
+
+    it('parses previous-ssrc', function() {
+      const previousSSRC = getAllMediaAttr(1, 'ssrc')
+              .find((s) => s.attribute && s.attribute.type === 'previous-ssrc');
+
+      expect(previousSSRC).to.eql({
+        id: 3339118420,
+        attribute: {
+          type: 'previous-ssrc',
+          value: '1234567890',
+        },
+      });
+    });
+
+    describe('encryption key line', function() {
+      it('parses cleartext keys', function() {
+        expect(sdp.media[0].key).to.equal('clear:manhole cover');
+      });
+
+      it('parses base64 encoded keys', function() {
+        expect(sdp.media[1].key).to.equal('base64:bhdsfsd78f7dssdfssfsd7sdfssa');
+      });
+
+      it('parses uri location keys', function() {
+        expect(sdp.media[2].key).to.equal('uri:https://example.com');
+      });
+
+      it('parses a request to prompt for user authentication', function() {
+        expect(sdp.media[3].key).to.equal('prompt');
+      });
+    });
+
     it('maintains total order of lines');
   });
 });

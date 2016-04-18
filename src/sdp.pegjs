@@ -176,10 +176,7 @@ ZoneAdjustments = "z=" time:time SP offset:$("-"? TypedTime) rest:(SP time SP $(
 }
 
 KeyField = "k=" key:$KeyType EOL {
-  return {
-    type: 'key',
-    value: key
-  };
+  return key;
 }
 
 
@@ -245,11 +242,11 @@ MediaDescription = m:MediaLine info:InformationField? connections:ConnectionFiel
     desc.numberOfPorts = m.numberOfPorts;
   }
 
-  if (m.info) {
+  if (info) {
     desc.info = info;
   }
 
-  if (m.key) {
+  if (key) {
     desc.key = key;
   }
 

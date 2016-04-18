@@ -46,4 +46,10 @@
     "type": "label",
     "value": "85c70629-98cd-4ce4-8508-b9374c7baa6d"
   }
+}, {
+  "attribute": {
+    "type": "previous-ssrc",
+    "value": "1234567890"
+  },
+  "id": 3339118420
 }]

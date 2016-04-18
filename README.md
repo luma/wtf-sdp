@@ -14,8 +14,8 @@
 
 
 ```shell
-git clone https://github.com/luma/rapport.git
-cd rapport
+git clone https://github.com/luma/wtfsdp.git
+cd wtfsdp
 npm link
 ```
 
@@ -50,9 +50,6 @@ See [CONTRIBUTING.md](../master/CONTRIBUTING.md)
 
 ### Common Tasks
 
-* **gulp help**: get an overview of what tasks are available
-* **gulp test**: run the tests
-* **gulp doc**: generate the docs. They will be placed in the `docs/` folder
-* **gulp todo**: display all todos and fixmes in the project. It also writes them to TODO.md and todo.json
-
-**@TODO: List the other tasks specific to this module**
+* **npm test**: run the tests
+* **npm run doc**: generate the docs. They will be placed in the `docs/` folder
+* **npm run todo**: Creates a TODO.md file that lists all the TODOs/FIXMEs/etc in the project

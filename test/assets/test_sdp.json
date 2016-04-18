@@ -40,6 +40,12 @@
   }, {
     "type": "ice-options",
     "value": ["trickle"]
+  }, {
+    "type": "ice-ufrag",
+    "value": "4dS4NkAMrAgKccxA"
+  }, {
+    "type": "ice-pwd",
+    "value": "VC9qlvEt54AXvF91TEYIdNe+"
   }],
   "media": [{
     "type": "audio",
@@ -237,6 +243,7 @@
         "port": 58975
       }]
     }],
+    "key": "clear:manhole cover",
     "connections": [{
       "netType": "IN",
       "addressType": "IP4",
@@ -529,6 +536,15 @@
         }
       }
     }, {
+      "type": "ssrc",
+      "value": {
+        "id": 3339118420,
+        "attribute": {
+          "type": "previous-ssrc",
+          "value": "1234567890"
+        }
+      }
+    }, {
       "type": "candidate",
       "value": {
         "foundation": "1",
@@ -555,6 +571,7 @@
         "relPort": 8998
       }
     }],
+    "key": "base64:bhdsfsd78f7dssdfssfsd7sdfssa",
     "connections": [{
       "netType": "IN",
       "addressType": "IP4",
@@ -870,6 +887,7 @@
         "relPort": 8998
       }
     }],
+    "key": "uri:https://example.com",
     "connections": [{
       "netType": "IN",
       "addressType": "IP4",
@@ -1053,6 +1071,7 @@
         "relPort": 8998
       }
     }],
+    "key": "prompt",
     "connections": [{
       "netType": "IN",
       "addressType": "IP4",

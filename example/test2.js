@@ -1,7 +1,8 @@
+/* eslint-disable no-console */
 import { readFileSync } from 'fs';
 import prettyjson from 'prettyjson';
 import { Sdp } from '../src';
-const rawSdp = readFileSync('./example/test.sdp').toString();
+const rawSdp = readFileSync('./test/assets/test.sdp').toString();
 
 Sdp.parse(rawSdp).then((sdp) => {
   console.log(prettyjson.render(sdp));
