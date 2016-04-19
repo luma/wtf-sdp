@@ -1,10 +1,5 @@
-[{
-  "value": "2",
-  "extension": "urn:ietf:params:rtp-hdrext:toffset"
-}, {
-  "value": "3",
-  "extension": "http://www.webrtc.org/experiments/rtp-hdrext/abs-send-time"
-}, {
-  "value": "4",
-  "extension": "urn:3gpp:video-orientation"
-}]
+{
+  "2": "urn:ietf:params:rtp-hdrext:toffset",
+  "3": "http://www.webrtc.org/experiments/rtp-hdrext/abs-send-time",
+  "4": "urn:3gpp:video-orientation"
+}

@@ -1,55 +1,42 @@
-[{
-  "id": 750257294,
-  "attribute": {
-    "type": "cname",
-    "value": "qNn0vt04pMSU+wOo"
-  }
-}, {
-  "id": 750257294,
-  "attribute": {
-    "type": "msid",
-    "value": "y2Pkbz4KgqrQz9Rx1WM91xAOsAOYAYZNcucu 85c70629-98cd-4ce4-8508-b9374c7baa6d"
-  }
-}, {
-  "id": 750257294,
-  "attribute": {
-    "type": "mslabel",
-    "value": "y2Pkbz4KgqrQz9Rx1WM91xAOsAOYAYZNcucu"
-  }
-}, {
-  "id": 750257294,
-  "attribute": {
-    "type": "label",
-    "value": "85c70629-98cd-4ce4-8508-b9374c7baa6d"
-  }
-}, {
-  "id": 3339118420,
-  "attribute": {
-    "type": "cname",
-    "value": "qNn0vt04pMSU+wOo"
-  }
-}, {
-  "id": 3339118420,
-  "attribute": {
-    "type": "msid",
-    "value": "y2Pkbz4KgqrQz9Rx1WM91xAOsAOYAYZNcucu 85c70629-98cd-4ce4-8508-b9374c7baa6d"
-  }
-}, {
-  "id": 3339118420,
-  "attribute": {
-    "type": "mslabel",
-    "value": "y2Pkbz4KgqrQz9Rx1WM91xAOsAOYAYZNcucu"
-  }
-}, {
-  "id": 3339118420,
-  "attribute": {
-    "type": "label",
-    "value": "85c70629-98cd-4ce4-8508-b9374c7baa6d"
-  }
-}, {
-  "attribute": {
-    "type": "previous-ssrc",
-    "value": "1234567890"
-  },
-  "id": 3339118420
-}]
+{
+  "750257294": [
+    {
+      "type": "cname",
+      "value": "qNn0vt04pMSU+wOo"
+    },
+    {
+      "type": "msid",
+      "value": "y2Pkbz4KgqrQz9Rx1WM91xAOsAOYAYZNcucu 85c70629-98cd-4ce4-8508-b9374c7baa6d"
+    },
+    {
+      "type": "mslabel",
+      "value": "y2Pkbz4KgqrQz9Rx1WM91xAOsAOYAYZNcucu"
+    },
+    {
+      "type": "label",
+      "value": "85c70629-98cd-4ce4-8508-b9374c7baa6d"
+    }
+  ],
+  "3339118420": [
+    {
+      "type": "cname",
+      "value": "qNn0vt04pMSU+wOo"
+    },
+    {
+      "type": "msid",
+      "value": "y2Pkbz4KgqrQz9Rx1WM91xAOsAOYAYZNcucu 85c70629-98cd-4ce4-8508-b9374c7baa6d"
+    },
+    {
+      "type": "mslabel",
+      "value": "y2Pkbz4KgqrQz9Rx1WM91xAOsAOYAYZNcucu"
+    },
+    {
+      "type": "label",
+      "value": "85c70629-98cd-4ce4-8508-b9374c7baa6d"
+    },
+    {
+      "type": "previous-ssrc",
+      "value": "1234567890"
+    }
+  ]
+}

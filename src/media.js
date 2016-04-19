@@ -7,6 +7,8 @@ import filterUndefinedValues from './util/filter_undefined_values.js';
 export default class Media {
   constructor(raw) {
     const self = this;
+    // @TODO this stuff could all go away if I could get the memoize decorator
+    // working with Babel 6
     const memoizePayloads = memoize(() => collatePayloads(self.formats, self.attrs));
     const memoizeExtensions = memoize(() => {
       return self.attrs.get('extmap').reduce((exts, ext) => {
