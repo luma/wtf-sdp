@@ -26,7 +26,7 @@ export default class Attributes {
   }
 
   has(type) {
-    return this.first(type) !== void 0;
+    return this.all.find((attr) => attr.type === type) !== void 0;
   }
 
   find(predicate, thisArg) {
@@ -44,5 +44,9 @@ export default class Attributes {
     }
 
     return this.all.filter(predicate, thisArg);
+  }
+
+  toJson() {
+    return this.all;
   }
 }

@@ -49,22 +49,22 @@ export const collateAttr = (payload, attr) => {
  *
  * @param  {Array} rawFormats Array of supported formats (payload ids)
  * @param  {Array} attrs      Array of
- * @return {Object}           A dictionary that maps format to payload properties.
+ * @return {Map}              A map of format to payload properties.
  */
 export const collatePayloads = (rawFormats, attrs) => {
   const formats = new Set(rawFormats);
-  const payloads = {};
+  const payloads = new Map();
 
   for (const attr of attrs) {
     if (attr.value && attr.value.format && formats.has(attr.value.format)) {
       const { format, ...rest } = attr.value;
 
-      if (!payloads.hasOwnProperty(format)) {
-        payloads[format] = { id: format };
+      if (!payloads.has(format)) {
+        payloads.set(format, { id: format });
       }
 
       if (collatableTypes.includes(attr.type)) {
-        collateAttr(payloads[format], rest);
+        collateAttr(payloads.get(format), rest);
       }
     }
   }

@@ -2,7 +2,7 @@
 import { readFileSync } from 'fs';
 import prettyjson from 'prettyjson';
 import { parse } from '../src';
-const rawSdp = readFileSync('./test/assets/test.sdp').toString();
+const rawSdp = readFileSync('./test/assets/testSmall.sdp').toString();
 
 parse(rawSdp).then((sdp) => {
   // console.log(prettyjson.render(sdp));

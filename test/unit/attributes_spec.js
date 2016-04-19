@@ -90,6 +90,10 @@ describe('Attributes', function() {
       expect(attrs.has('fingerprint')).to.be.true;
     });
 
+    it('returns true when there is a type even if it does not have a value', function() {
+      expect(attrs.has('rtcp-mux')).to.be.true;
+    });
+
     it('returns false when there are no attributes with a specific type', function() {
       expect(attrs.has('trolololo')).to.be.false;
     });

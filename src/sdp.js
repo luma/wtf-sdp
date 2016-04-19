@@ -2,6 +2,7 @@ import memoize from 'lodash.memoize';
 import Attributes from './attributes.js';
 import Media from './media.js';
 import parse from './parse.js';
+import filterUndefinedValues from './util/filter_undefined_values.js';
 
 export default class Sdp {
   static parse(rawSdp) {
@@ -68,5 +69,23 @@ export default class Sdp {
 
   get attrs() {
     return memoize(() => new Attributes(this.raw.attrs));
+  }
+
+  toJson() {
+    return filterUndefinedValues({
+      version: this.version,
+      origin: this.origin,
+      sessionName: this.sessionName,
+      times: this.times,
+      info: this.info,
+      uri: this.uri,
+      emails: this.emails,
+      phones: this.phones,
+      groups: this.groups,
+      connection: this.connection,
+      ice: this.ice,
+      attrs: this.attrs.toJson(),
+      media: this.media.map((m) => m.toJson()),
+    });
   }
 }
