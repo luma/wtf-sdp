@@ -68,7 +68,7 @@ describe('Payloads', function() {
     });
 
     function verifyRtpmap(id, encodingName, clockRate, encodingParams) {
-      const payload = payloads[id];
+      const payload = payloads.get(id);
       expect(payload).to.have.property('id', id);
       expect(payload).to.have.property('encodingName', encodingName);
       expect(payload).to.have.property('clockRate', clockRate);
@@ -91,7 +91,7 @@ describe('Payloads', function() {
     });
 
     function verifyFmtp(id, params) {
-      const payload = payloads[id];
+      const payload = payloads.get(id);
       expect(payload.params).to.eql(params);
     }
 
@@ -106,7 +106,7 @@ describe('Payloads', function() {
     });
 
     function verifyRtcpFb(id, feedback) {
-      const payload = payloads[id];
+      const payload = payloads.get(id);
       expect(payload.feedback).to.eql(feedback);
     }
 
