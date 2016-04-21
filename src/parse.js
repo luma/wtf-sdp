@@ -1,5 +1,5 @@
 import Tracer from 'pegjs-backtrace';
-import parser from './grammar.js';
+import parser from './grammar.peg.js';
 
 export class ParserError extends Error {
   /**

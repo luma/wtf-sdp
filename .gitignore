@@ -26,7 +26,7 @@ doc/gen
 lib/
 examples/lib/
 tmp/logs
-src/grammar.js
+src/grammar.peg.js
 
 .DS_Store
 TODO.md

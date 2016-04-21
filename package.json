@@ -7,7 +7,7 @@
   "main": "lib/index.js",
   "license": "SEE LICENSE IN LICENSE",
   "scripts": {
-    "buildParser": "pegjs src/sdp.pegjs src/grammar.js",
+    "buildParser": "pegjs src/sdp.pegjs src/grammar.peg.js",
     "babelify": "babel src -d lib",
     "build": "npm run buildParser && npm run babelify",
     "todo": "leasot --reporter markdown example/**/*.js src/**/*.js test/**/*.js > TODO.md; exit 0",

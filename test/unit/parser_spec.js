@@ -1,5 +1,5 @@
 /* eslint max-nested-callbacks: [0] */
-import parser from '../../src/grammar.js';
+import parser from '../../src/grammar.peg.js';
 import { readAsset } from '../helpers/file_helpers.js';
 
 describe('Parser', function() {

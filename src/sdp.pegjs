@@ -1,8 +1,9 @@
-/*
+/**
  * Session Description Protocol (SDP) grammar
  * ==========================================
  *
  * See https://tools.ietf.org/html/rfc4566
+ * @private
  */
 {
   function extractFirst(array) {
