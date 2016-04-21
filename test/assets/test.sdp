@@ -87,6 +87,7 @@ a=rtpmap:97 rtx/90000
 a=fmtp:97 apt=101
 a=rtpmap:98 rtx/90000
 a=fmtp:98 apt=116
+a=fmtp:100 apt=116
 a=ssrc-group:FID 750257294 3339118420
 a=ssrc:750257294 cname:qNn0vt04pMSU+wOo
 a=ssrc:750257294 msid:y2Pkbz4KgqrQz9Rx1WM91xAOsAOYAYZNcucu 85c70629-98cd-4ce4-8508-b9374c7baa6d

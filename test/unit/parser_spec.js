@@ -183,7 +183,7 @@ describe('Parser', function() {
         type: 'group',
         value: {
           semantics: 'BUNDLE',
-          idTags: ['audio', 'video'],
+          ids: ['audio', 'video'],
         },
       });
     });
@@ -356,23 +356,23 @@ describe('Parser', function() {
 
       expect(candidates[0]).to.eql({
         foundation: '1',
-        componentId: '1',
+        componentId: 1,
         transport: 'UDP',
-        priority: '2130706431',
+        priority: 2130706431,
         address: '10.0.1.1',
         port: 8998,
-        candidateType: 'host',
+        type: 'host',
         extensions: [],
       });
 
       expect(candidates[1]).to.eql({
         foundation: '2',
-        componentId: '1',
+        componentId: 1,
         transport: 'UDP',
-        priority: '1694498815',
+        priority: 1694498815,
         address: '192.0.2.3',
         port: 45664,
-        candidateType: 'srflx',
+        type: 'srflx',
         extensions: [],
         relAddr: '10.0.1.1',
         relPort: 8998,
@@ -419,17 +419,17 @@ describe('Parser', function() {
     it('parses remote-candidates', function() {
       const remoteCandidates = getAllMediaAttr(0, 'remote-candidates');
       expect(remoteCandidates[0]).to.eql([{
-        componentId: '1',
+        componentId: 1,
         address: '10.104.0.68',
         port: 50025,
       }]);
 
       expect(remoteCandidates[1]).to.eql([{
-        componentId: '1',
+        componentId: 1,
         address: '213.199.141.81',
         port: 51721,
       }, {
-        componentId: '2',
+        componentId: 2,
         address: '213.199.141.81',
         port: 58975,
       }]);

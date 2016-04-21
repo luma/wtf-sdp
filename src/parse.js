@@ -2,6 +2,16 @@ import Tracer from 'pegjs-backtrace';
 import parser from './grammar.js';
 
 export class ParserError extends Error {
+  /**
+   * An object that wraps up all parser errors. We do our best to ensure
+   * that all passing errors always have a useful stacktrace.
+   *
+   * @constructor
+   * @param {String} message    A human readable error message
+   * @param {Object} stack      Optional. If it's available, this will be the
+   * stack trace for this error. If this param is not provided we will do our best
+   * to capture it using other means.
+   */
   constructor(message, stack) {
     super(message);
 
@@ -14,7 +24,14 @@ export class ParserError extends Error {
   }
 }
 
-
+/**
+ * Parses a raw SDP string into a JSON object.
+ *
+ * @function parse
+ * @param  {String} rawSdp The raw SDP to parse
+ * @return {Promise}       A promise that will resolve with a JSON representation
+ * of the SDP. It will reject with an instance of ParseError.
+ */
 export default (rawSdp) => {
   if (!rawSdp) {
     const err = new ParserError('There was no SDP to parse');

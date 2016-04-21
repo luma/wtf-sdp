@@ -28,7 +28,7 @@
     "type": "group",
     "value": {
       "semantics": "BUNDLE",
-      "idTags": ["audio", "video"]
+      "ids": ["audio", "video"]
     }
   }, {
     "type": "msid-semantic",
@@ -202,24 +202,24 @@
       "type": "candidate",
       "value": {
         "foundation": "1",
-        "componentId": "1",
+        "componentId": 1,
         "transport": "UDP",
-        "priority": "2130706431",
+        "priority": 2130706431,
         "address": "10.0.1.1",
         "port": 8998,
-        "candidateType": "host",
+        "type": "host",
         "extensions": []
       }
     }, {
       "type": "candidate",
       "value": {
         "foundation": "2",
-        "componentId": "1",
+        "componentId": 1,
         "transport": "UDP",
-        "priority": "1694498815",
+        "priority": 1694498815,
         "address": "192.0.2.3",
         "port": 45664,
-        "candidateType": "srflx",
+        "type": "srflx",
         "extensions": [],
         "relAddr": "10.0.1.1",
         "relPort": 8998
@@ -227,18 +227,18 @@
     }, {
       "type": "remote-candidates",
       "value": [{
-        "componentId": "1",
+        "componentId": 1,
         "address": "10.104.0.68",
         "port": 50025
       }]
     }, {
       "type": "remote-candidates",
       "value": [{
-        "componentId": "1",
+        "componentId": 1,
         "address": "213.199.141.81",
         "port": 51721
       }, {
-        "componentId": "2",
+        "componentId": 2,
         "address": "213.199.141.81",
         "port": 58975
       }]
@@ -458,6 +458,12 @@
         "params": ["apt=116"]
       }
     }, {
+      "type": "fmtp",
+      "value": {
+        "format": "100",
+        "params": ["apt=116"]
+      }
+    }, {
       "type": "ssrc-group",
       "value": {
         "semantics": "FID",
@@ -548,24 +554,24 @@
       "type": "candidate",
       "value": {
         "foundation": "1",
-        "componentId": "1",
+        "componentId": 1,
         "transport": "UDP",
-        "priority": "2130706431",
+        "priority": 2130706431,
         "address": "10.0.1.1",
         "port": 8998,
-        "candidateType": "host",
+        "type": "host",
         "extensions": []
       }
     }, {
       "type": "candidate",
       "value": {
         "foundation": "2",
-        "componentId": "1",
+        "componentId": 1,
         "transport": "UDP",
-        "priority": "1694498815",
+        "priority": 1694498815,
         "address": "192.0.2.3",
         "port": 45664,
-        "candidateType": "srflx",
+        "type": "srflx",
         "extensions": [],
         "relAddr": "10.0.1.1",
         "relPort": 8998
@@ -864,24 +870,24 @@
       "type": "candidate",
       "value": {
         "foundation": "1",
-        "componentId": "1",
+        "componentId": 1,
         "transport": "UDP",
-        "priority": "2130706431",
+        "priority": 2130706431,
         "address": "10.0.1.1",
         "port": 8998,
-        "candidateType": "host",
+        "type": "host",
         "extensions": []
       }
     }, {
       "type": "candidate",
       "value": {
         "foundation": "2",
-        "componentId": "1",
+        "componentId": 1,
         "transport": "UDP",
-        "priority": "1694498815",
+        "priority": 1694498815,
         "address": "192.0.2.3",
         "port": 45664,
-        "candidateType": "srflx",
+        "type": "srflx",
         "extensions": [],
         "relAddr": "10.0.1.1",
         "relPort": 8998
@@ -1048,24 +1054,24 @@
       "type": "candidate",
       "value": {
         "foundation": "1",
-        "componentId": "1",
+        "componentId": 1,
         "transport": "UDP",
-        "priority": "2130706431",
+        "priority": 2130706431,
         "address": "10.0.1.1",
         "port": 8998,
-        "candidateType": "host",
+        "type": "host",
         "extensions": []
       }
     }, {
       "type": "candidate",
       "value": {
         "foundation": "2",
-        "componentId": "1",
+        "componentId": 1,
         "transport": "UDP",
-        "priority": "1694498815",
+        "priority": 1694498815,
         "address": "192.0.2.3",
         "port": 45664,
-        "candidateType": "srflx",
+        "type": "srflx",
         "extensions": [],
         "relAddr": "10.0.1.1",
         "relPort": 8998

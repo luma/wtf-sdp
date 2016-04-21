@@ -7,20 +7,23 @@ const collatableTypes = ['rtpmap', 'fmtp', 'rtcp-fb'];
  * except that rather than overwriting existing keys it will allow multiple values
  * to be under a single key (it's a multimap).
  *
- * @example:
- *   const payload = { foo: 'bar' };
- *   collateAttr(payload, {
- *     id: 'foos',
- *     fo: 'baz'
- *   });
- *   payload === {
- *     id: 'foos',
- *     foo: ['bar', 'baz'],
- *   }
+ *  ```
+ *    const payload = { foo: 'bar' };
+ *    collateAttr(payload, {
+ *      id: 'foos',
+ *      fo: 'baz'
+ *    });
+ *    payload === {
+ *      id: 'foos',
+ *      foo: ['bar', 'baz'],
+ *    }
+ * ```
  *
- * @param  {Object} payload [description]
- * @param  {Object} attr    [description]
- * @return {[type]}         [description]
+ * @private
+ * @param  {Object} payload The current payload
+ * @param  {Object} attr    The new attribute to merge into payload
+ * @return {Object}         The uploaded payload
+ *
  */
 export const collateAttr = (payload, attr) => {
   for (const key in attr) {
@@ -47,6 +50,7 @@ export const collateAttr = (payload, attr) => {
  * context the formats will be the supported formats from the media line itself
  * and attrs will be all attribute lines that belong to that media.
  *
+ * @private
  * @param  {Array} rawFormats Array of supported formats (payload ids)
  * @param  {Array} attrs      Array of
  * @return {Map}              A map of format to payload properties.

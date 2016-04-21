@@ -99,7 +99,7 @@ describe('Payloads', function() {
       verifyFmtp('96', ['apt=100']);
       verifyFmtp('97', ['apt=101']);
       verifyFmtp('98', ['apt=116']);
-      verifyFmtp('100');
+      verifyFmtp('100', ['apt=116']);
       verifyFmtp('101');
       verifyFmtp('116');
       verifyFmtp('117');

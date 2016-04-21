@@ -423,12 +423,12 @@ MidLine = "a=mid:" id:identificationTag EOL {
  * https://tools.ietf.org/html/rfc5888#section-5
  * e.g. a=group:BUNDLE audio video
  */
-GroupLine = "a=group:" s:groupSemantics idTags:(SP identificationTag)* EOL {
+GroupLine = "a=group:" s:groupSemantics ids:(SP identificationTag)* EOL {
   return {
     type: 'group',
     value: {
       semantics: s,
-      idTags: extractFirst(idTags),
+      ids: extractFirst(ids),
     },
   }
 }
@@ -533,7 +533,7 @@ CandidateLine = "a=candidate:" a:Foundation SP b:ComponentId SP c:Transport SP
       priority: d,
       address: e,
       port: f,
-      candidateType: g,
+      type: g,
       extensions: j.map((ext) => {
         return {name: ext[1], value: ext[3]};
       }),
@@ -555,10 +555,10 @@ CandidateLine = "a=candidate:" a:Foundation SP b:ComponentId SP c:Transport SP
 // the number of repeats of a sequence isn't directly supported in PEG.js yet.
 // The following is 1 or more, rather than between 1 and 32.
 Foundation = $IceChar+
-ComponentId = $DIGIT1_5
+ComponentId = DIGIT1_5 { return parseInt(text(), 10); }
 Transport = "UDP" / TransportExtension
 TransportExtension = token
-Priority = $DIGIT1_10
+Priority = DIGIT1_10 { return parseInt(text(), 10); }
 CandType = "typ" SP type:CandidateTypes { return type; }
 CandidateTypes = "host" / "srflx" / "prflx" / "relay" / token
 RelAddr = "raddr" SP addr:ConnectionAddress { return addr; }

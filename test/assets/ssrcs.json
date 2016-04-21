@@ -1,42 +1,15 @@
 {
-  "750257294": [
-    {
-      "type": "cname",
-      "value": "qNn0vt04pMSU+wOo"
-    },
-    {
-      "type": "msid",
-      "value": "y2Pkbz4KgqrQz9Rx1WM91xAOsAOYAYZNcucu 85c70629-98cd-4ce4-8508-b9374c7baa6d"
-    },
-    {
-      "type": "mslabel",
-      "value": "y2Pkbz4KgqrQz9Rx1WM91xAOsAOYAYZNcucu"
-    },
-    {
-      "type": "label",
-      "value": "85c70629-98cd-4ce4-8508-b9374c7baa6d"
-    }
-  ],
-  "3339118420": [
-    {
-      "type": "cname",
-      "value": "qNn0vt04pMSU+wOo"
-    },
-    {
-      "type": "msid",
-      "value": "y2Pkbz4KgqrQz9Rx1WM91xAOsAOYAYZNcucu 85c70629-98cd-4ce4-8508-b9374c7baa6d"
-    },
-    {
-      "type": "mslabel",
-      "value": "y2Pkbz4KgqrQz9Rx1WM91xAOsAOYAYZNcucu"
-    },
-    {
-      "type": "label",
-      "value": "85c70629-98cd-4ce4-8508-b9374c7baa6d"
-    },
-    {
-      "type": "previous-ssrc",
-      "value": "1234567890"
-    }
-  ]
+  "750257294": {
+    "cname": "qNn0vt04pMSU+wOo",
+    "msid": "y2Pkbz4KgqrQz9Rx1WM91xAOsAOYAYZNcucu 85c70629-98cd-4ce4-8508-b9374c7baa6d",
+    "mslabel": "y2Pkbz4KgqrQz9Rx1WM91xAOsAOYAYZNcucu",
+    "label": "85c70629-98cd-4ce4-8508-b9374c7baa6d"
+  },
+  "3339118420": {
+    "cname": "qNn0vt04pMSU+wOo",
+    "msid": "y2Pkbz4KgqrQz9Rx1WM91xAOsAOYAYZNcucu 85c70629-98cd-4ce4-8508-b9374c7baa6d",
+    "mslabel": "y2Pkbz4KgqrQz9Rx1WM91xAOsAOYAYZNcucu",
+    "label": "85c70629-98cd-4ce4-8508-b9374c7baa6d",
+    "previous-ssrc": "1234567890"
+  }
 }
