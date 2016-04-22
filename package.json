@@ -13,10 +13,10 @@
     "todo": "leasot --reporter markdown example/**/*.js src/**/*.js test/**/*.js > TODO.md; exit 0",
     "doc": "jsdoc --configure .jsdocrc",
     "lint": "eslint src/**/*.js",
-    "cov": "BABEL_ENV=test rm -rf ./coverage && babel-node ./node_modules/istanbul/lib/cli.js cover --dir ./reports/coverage _mocha -- --opts ./test/mocha.opts ./test",
+    "cov": "BABEL_ENV=test rm -rf ./reports/coverage && babel-node ./node_modules/istanbul/lib/cli.js cover --dir ./reports/coverage _mocha -- --opts ./test/mocha.opts ./test",
     "test": "BABEL_ENV=test npm run buildParser && npm run lint && mocha --opts ./test/mocha.opts ./test",
-    "test-travis": "BABEL_ENV=test rm -rf ./coverage && npm run buildParser && babel-node node_modules/.bin/istanbul cover --dir ./reports/coverage --report lcovonly _mocha -- --opts ./test/mocha.opts ./test",
-    "report-to-codeclimate": "codeclimate-test-reporter < --dir ./reports/coverage/lcov.info",
+    "test-travis": "BABEL_ENV=test rm -rf ./reports/coverage && npm run buildParser && babel-node node_modules/.bin/istanbul cover --dir ./reports/coverage --report lcovonly _mocha -- --opts ./test/mocha.opts ./test",
+    "report-to-codeclimate": "codeclimate-test-reporter < ./reports/coverage/lcov.info",
     "prepublish": "npm run build",
     "example": "babel-node example/test.js",
     "example2": "babel-node example/test2.js"
