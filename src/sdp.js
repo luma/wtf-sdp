@@ -120,6 +120,12 @@ export default class Sdp {
     return this.raw.connection;
   }
 
+  /**
+   * Gets the grouping policies for media.
+   *
+   * @property {Array} An array of objects, each object will define the group semantics and
+   * the media ids that it applies to.
+   */
   get groups() {
     return this.attrs.get('group');
   }
