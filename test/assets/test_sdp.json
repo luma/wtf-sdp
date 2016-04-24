@@ -270,7 +270,9 @@
       "value": "VC9qlvEt54AXvF91TEYIdNe+"
     }, {
       "type": "ice-options",
-      "value": ["interpretiveDance"]
+      "value": [
+        "interpretiveDance"
+      ]
     }, {
       "type": "fingerprint",
       "value": {
@@ -967,7 +969,9 @@
       "type": "fmtp",
       "value": {
         "format": "111",
-        "params": ["minptime=10"]
+        "params": [
+          "minptime=10"
+        ]
       }
     }, {
       "type": "rtpmap",

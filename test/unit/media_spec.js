@@ -3,12 +3,17 @@ import mapToObject from '../../src/util/map_to_object.js';
 import { readJsonAsset } from '../helpers/file_helpers.js';
 
 describe('Media', function() {
-  let video;
+  let video, rawMedia;
 
   beforeEach(function() {
     return readJsonAsset('test_sdp.json').then((sdpJson) => {
-      video = new Media(sdpJson.media[1]);
+      rawMedia = sdpJson.media[1];
+      video = new Media(rawMedia);
     });
+  });
+
+  it('exposes the raw lines', function() {
+    expect(video.raw).to.eql(rawMedia);
   });
 
   it('has an id', function() {
@@ -114,4 +119,6 @@ describe('Media', function() {
       expect(video.payloads.get('100')).to.equal(vp8);
     });
   });
+
+  it('serialises to JSON correctly');
 });
