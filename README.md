@@ -105,7 +105,7 @@ const rawSdp = '...';
 
 parse(rawSdp).then((sdp) => {
   // sdp is just a JSON representation of the parsed SDP.
-  console.log(JSON.stringify(sdp));
+  console.log(JSON.stringify(sdp, null, 2));
 }).catch((err) => {
   if (err.stack) {
     console.error(err.stack);
@@ -125,7 +125,7 @@ You can run the two examples with `npm run example` and `npm run example2`.
 
 * **npm test**: run the tests
 * **npm run build**: build the release library into the `lib/` dir
-* **npm run doc**: generate the docs. They will be placed in the `docs/` folder
+* **npm run doc**: generate the docs. They will be placed in the `doc/gen/` folder
 * **npm run todo**: Creates a TODO.md file that lists all the TODOs/FIXMEs/etc in the project
 
 ### Contributing
@@ -134,7 +134,6 @@ See [CONTRIBUTING.md](../master/CONTRIBUTING.md)
 
 ### TODO
 
-* Docs
 * Test are missing a lot of edge cases, they need to be improved
 * Human readable lookups of the [RTP Compact Header Extensions](https://www.iana.org/assignments/rtp-parameters/rtp-parameters.xml). [RFC5285](http://tools.ietf.org/html/rfc5285)
 * Human readable lookups of the [FMT Values for PSFB Payload Types](https://www.iana.org/assignments/rtp-parameters/rtp-parameters.xml). [RFC4585](http://www.iana.org/go/rfc4585)
