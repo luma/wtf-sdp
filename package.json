@@ -1,9 +1,10 @@
 {
   "name": "wtfsdp",
-  "version": "1.0.0-pre.0",
+  "version": "1.0.0-pre.1",
   "engines": {
     "node": ">=5.0.0"
   },
+  "description": "SDP parser, high level helpers, and explainer",
   "main": "lib/index.js",
   "license": "SEE LICENSE IN LICENSE",
   "scripts": {
